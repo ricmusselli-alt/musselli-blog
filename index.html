@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musselli — Blog de Lutería y Guitar Tech</title>
+<meta name="description" content="Artículos técnicos sobre construcción, reparación y mantenimiento de guitarras, escritos con criterio de luthier.">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --negro:#141212; --borgona:#5D0002; --hueso:#F5F0E6; --crema:#F3ECE1; --dorado:#CCA353; --cobre:#C89B6C; }
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body { font-family:'Poppins',sans-serif; background:var(--hueso); color:#2a2723; }
+  header { background:var(--negro); padding:18px 40px; }
+  .logo { font-family:'Lora',serif; font-weight:700; font-size:20px; color:var(--hueso); }
+  .logo span { color:var(--dorado); }
+
+  .featured { position:relative; min-height:420px; background:var(--negro); display:flex; align-items:flex-end; padding:48px 40px; background-size:cover; background-position:center; }
+  .featured::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,18,18,0.1) 0%, rgba(20,18,18,0.92) 100%); }
+  .featured-inner { position:relative; max-width:760px; }
+  .kicker { display:inline-block; background:var(--borgona); color:var(--crema); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; margin-bottom:14px; }
+  .featured h1 { font-family:'Lora',serif; font-size:36px; color:var(--hueso); line-height:1.25; margin-bottom:10px; }
+  .featured p { color:#cfc8ba; font-size:15px; max-width:600px; }
+  .featured a { text-decoration:none; }
+
+  .grid-wrap { max-width:1000px; margin:0 auto; padding:48px 40px; }
+  .grid-title { font-family:'Lora',serif; font-size:20px; margin-bottom:24px; color:var(--negro); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:24px; }
+  .card { text-decoration:none; color:inherit; display:block; }
+  .card .thumb { height:160px; background:#ddd6c8; background-size:cover; background-position:center; margin-bottom:12px; border-left:3px solid var(--dorado); }
+  .card .cat { font-size:10px; color:var(--borgona); text-transform:uppercase; letter-spacing:0.8px; font-weight:600; }
+  .card h3 { font-family:'Lora',serif; font-size:16px; margin:6px 0; line-height:1.4; color:var(--negro); }
+  .card .date { font-size:12px; color:#8a857c; }
+
+  #empty { color:#8a857c; padding:40px; text-align:center; }
+  footer { background:var(--negro); padding:24px; text-align:center; color:#6b6355; font-size:12px; }
+</style>
+</head>
+<body>
+
+<header><img src="assets-site/logo-blog.png" alt="Musselli Blog" style="height:32px;"></header>
+
+<div id="featured-wrap"></div>
+<div class="grid-wrap">
+  <div class="grid-title">Más publicaciones</div>
+  <div class="grid" id="grid"></div>
+  <div id="empty" style="display:none;">Todavía no hay publicaciones.</div>
+</div>
+
+<footer>© Musselli — Guitar Tech · Luthier</footer>
+
+<script>
+const SUPABASE_URL = "https://zquxompfcahmjquobnvk.supabase.co";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpxdXhvbXBmY2FobWpxdW9ibnZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMDk2NjAsImV4cCI6MjEwMzY4NTY2MH0.ZMa0_ZFsEKVK0lRydq1zjxQDcteGXxOKdmr00D-62wk";
+
+function catLabel(cat) {
+  return cat === "guitar-tech" ? "Guitar Tech" : "Luthier";
+}
+
+function fmtDate(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("es-AR", { day: "numeric", month: "long", year: "numeric" });
+}
+
+async function loadPosts() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/list-published`, {
+      headers: { Authorization: `Bearer ${ANON_KEY}` },
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    const posts = data.posts || [];
+    if (posts.length === 0) {
+      document.getElementById("empty").style.display = "block";
+      return;
+    }
+
+    const [latest, ...rest] = posts;
+
+    const heroUrl = latest.hero_image ? `./${latest.slug}/assets/${latest.hero_image}` : "";
+    document.getElementById("featured-wrap").innerHTML = `
+      <a href="./${latest.slug}/">
+        <div class="featured" style="${heroUrl ? `background-image:url('${heroUrl}')` : ""}">
+          <div class="featured-inner">
+            <span class="kicker">${catLabel(latest.category)}</span>
+            <h1>${latest.title}</h1>
+            <p>${fmtDate(latest.published_at)}</p>
+          </div>
+        </div>
+      </a>
+    `;
+
+    const grid = document.getElementById("grid");
+    grid.innerHTML = rest.map((p) => {
+      const thumbUrl = p.hero_image ? `./${p.slug}/assets/${p.hero_image}` : "";
+      return `
+        <a class="card" href="./${p.slug}/">
+          <div class="thumb" style="${thumbUrl ? `background-image:url('${thumbUrl}')` : ""}"></div>
+          <div class="cat">${catLabel(p.category)}</div>
+          <h3>${p.title}</h3>
+          <div class="date">${fmtDate(p.published_at)}</div>
+        </a>
+      `;
+    }).join("");
+  } catch (err) {
+    document.getElementById("empty").style.display = "block";
+    document.getElementById("empty").textContent = "Error cargando publicaciones.";
+    console.error(err);
+  }
+}
+
+loadPosts();
+</script>
+</body>
+</html>
