@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿Se puede medir una guitarra con herramientas simples? Ciencia, micrófonos y FFT al alcance de todos | Musselli</title>
-<meta name="description" content="Durante mucho tiempo, la construcción y el ajuste de guitarras acústicas estuvieron rodeados de un halo de misterio. Se hablaba del 'oído absoluto' de">
+<title>¿Qué hace 'musical' a una madera? Propiedades físicas antes que mitología | Musselli</title>
+<meta name="description" content="En el mundo de la luthería es muy común escuchar hablar de las 'maderas tonales' como si tuvieran una propiedad mística e inexplicable. Seguro más de ">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root { --negro:#141212; --borgona:#5D0002; --hueso:#F5F0E6; --crema:#F3ECE1; --dorado:#CCA353; --cobre:#C89B6C; }
@@ -13,7 +13,7 @@
   header { background:var(--negro); padding:18px 40px; }
   .logo { font-family:'Lora',serif; font-weight:700; font-size:20px; color:var(--hueso); }
   .logo span { color:var(--dorado); }
-  .hero { background: linear-gradient(180deg, rgba(20,18,18,0.15) 0%, rgba(20,18,18,0.9) 100%), url('assets/hero.jpg') center/cover; padding:40px; min-height:280px; display:flex; align-items:flex-end; }
+  .hero { background:var(--negro); padding:40px; }
   .kicker { display:inline-block; background:var(--borgona); color:var(--crema); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; margin-bottom:14px; }
   .hero h1 { font-family:'Lora',serif; font-size:30px; color:var(--hueso); line-height:1.3; max-width:760px; }
   main { max-width:760px; margin:0 auto; padding:40px; }
@@ -22,42 +22,35 @@
 </style>
 </head>
 <body>
-<header><div class="logo">MUSSELLI <span>GUITAR TECH</span></div></header>
+<header><a href="/"><img src="/assets-site/logo-musselli-blog.png" alt="Musselli Blog" style="height:32px;"></a></header>
 <div class="hero">
-  <span class="kicker">Guitar Tech</span>
-  <h1>¿Se puede medir una guitarra con herramientas simples? Ciencia, micrófonos y FFT al alcance de todos</h1>
+  <span class="kicker">Luthier</span>
+  <h1>¿Qué hace 'musical' a una madera? Propiedades físicas antes que mitología</h1>
 </div>
-<main><p>Durante mucho tiempo, la construcción y el ajuste de guitarras acústicas estuvieron rodeados de un halo de misterio. Se hablaba del "oído absoluto" del artesano, de secretos transmitidos en secreto o de una intuición casi mágica para saber exactamente cuándo una tapa armónica había alcanzado su espesor ideal. Si bien la sensibilidad del luthier y la experiencia táctil siguen siendo insustituibles, la física del instrumento no es magia: es acústica aplicable y cuantificable.</p>
-<p>Hoy en día surge una pregunta muy común entre guitarristas y aficionados a la luthería: ¿es posible analizar y medir el comportamiento acústico de una guitarra usando únicamente herramientas simples como un teléfono inteligente, un micrófono estándar y una aplicación gratuita? La respuesta corta es sí, pero con matices claros sobre el nivel de precisión que podés esperar.</p>
-<p>En este artículo vamos a analizar cómo funciona la medición por impacto, qué herramientas necesitás, hasta dónde podés confiar en los datos obtenidos de forma casera y cuál es el límite técnico entre una medición informal y un análisis de laboratorio.</p>
-<p>### ¿Qué estamos midiendo exactamente?</p>
-<p>Cuando golpeás suavemente la tapa de madera de una guitarra o su puente con la yema del dedo o un percutor liviano, estás generando lo que en acústica se conoce como una respuesta al impulso. Este golpe introduce una pequeña cantidad de energía en una amplia gama de frecuencias de forma casi instantánea.</p>
-<p>Como la madera tiene una masa, una rigidez y una geometría específicas, no vibra de manera uniforme en todas las frecuencias. La estructura responde amplificando ciertas frecuencias particulares llamadas modos de resonancia o modos propios. Los dos modos más importantes en las frecuencias bajas de una guitarra acústica son el modo de aire del cuerpo (asociado al volumen de aire interno y a la boca, similar al efecto de una botella al soplarla) y el modo fundamental de la tapa armónica.</p>
-<p>Saber en qué frecuencia se encuentran estos picos de resonancia te da información directa sobre la rigidez relativa de la tapa y la masa del sistema. Si afinás la tapa o modificás la altura del varetaje, esa frecuencia se desplaza. Y ahí es donde entra la medición.</p>
-<p>### La caja de herramientas simple</p>
-<p>Para armar un sistema de análisis acústico básico en tu casa o taller, no necesitás un laboratorio de la NASA. Solo requerís tres elementos fundamentales:</p>
-<p>1. El percutor (el "martillo"): Para excitar la madera necesitás un elemento que entregue un golpe limpio, rápido y constante. La yema del nudillo o la cabeza de un martillo pequeño de madera liviana con la punta cubierta de goma suave o fieltro funcionan bien. El objetivo es dar un toque seco sin amortiguar la vibración posterior.</p>
-<p>2. El receptor (el micrófono): Puede ser desde el micrófono integrado de tu smartphone hasta un micrófono electret o de condensador conectado a una interfaz de audio. Si bien los micrófonos de teléfono tienen filtros internos de procesamiento de voz que alteran la respuesta de frecuencia general, suelen ser lo suficientemente estables para detectar picos de frecuencia fundamental.</p>
-<p>3. El analizador (software FFT): FFT significa Transformada Rápida de Fourier (Fast Fourier Transform). Es simplemente un algoritmo matemático que toma la señal de audio capturada (que es una onda en el tiempo) y la traduce a un gráfico de frecuencias (un espectro). Hay decenas de aplicaciones gratuitas tanto para iOS y Android como para computadoras (como Audacity, REW o Visual Analyzer).</p>
-<p>### Niveles de precisión: ¿Qué podés medir y qué no?</p>
-<p>Es fundamental gestionar las expectativas. No todas las mediciones entregan el mismo grado de certeza. Podemos dividir la medición acústica en tres niveles claros:</p>
-<p>Nivel 1: Teléfono + Micrófono integrado + App móvil
-Con esta configuración podés identificar con bastante claridad la frecuencia fundamental de la caja (el pico del modo de aire, típicamente entre 90 Hz y 110 Hz en una guitarra de caja grande) y el pico principal de la tapa (frecuentemente entre 180 Hz y 220 Hz según el diseño). Sirve perfectamente para comparar antes y después de un cambio drástico o para saber en qué nota está resonando la caja en reposo.
-¿Sus límites? El micrófono del teléfono no tiene una respuesta plana, la acústica de la habitación introduce reflexiones no deseadas y el impacto del golpe manual no es perfectamente repetible en fuerza ni en posición.</p>
-<p>Nivel 2: Micrófono de medición USB/interfaz + Entorno controlado + PC
-Al usar un micrófono de respuesta plana calibrado colocado a una distancia fija (por ejemplo, a 15-20 cm de la tapa) en una habitación silenciosa, la precisión aumenta notablemente. Acá podés registrar con mayor fidelidad los modos secundarios y analizar la tasa de decaimiento (cuánto tarda el sonido en apagarse en cada frecuencia). La repetibilidad mejora y podés tomar decisiones de ajuste de varetaje con mucha mayor confianza.</p>
-<p>Nivel 3: Percutor con célula de carga + Acelerómetros + Análisis modal dedicado
-Este es el estándar de investigación técnica avanzada. Un percutor instrumental mide exactamente cuánta fuerza se aplicó en el golpe, mientras que pequeños sensores de masa despreciable (acelerómetros) pegados a la madera miden el movimiento real de la estructura sin la interferencia del aire ni del micrófono. Este nivel permite mapear tridimensionalmente cómo se deforma la tapa en cada frecuencia. Es una herramienta indispensable para investigación profunda, aunque innecesaria para el mantenimiento o el control de rutina.</p>
-<p>### Guía paso a paso para hacer tu primera prueba casera</p>
-<p>Si querés probar este método en tu guitarra, podés seguir estos pasos sencillos:</p>
-<p>1. Silenciá las cuerdas: Colocá un paño de microfibra o una tira de goma espuma entre las cuerdas y el diapasón para amortiguar cualquier vibración metálica. Solo querés escuchar la madera y la caja, no las cuerdas vibrando libremente.
-2. Prepará la app: Abrí el analizador FFT en tu teléfono o computadora. Configurá el gráfico para que muestre el rango de frecuencias de 20 Hz a 1000 Hz, que es donde se concentra la información estructural más importante.
-3. Elegí un lugar silencioso: El ruido de fondo (un ventilador, el tráfico fuera de tu casa) genera picos falsos en la gráfica.
-4. Realizá el impacto: Sostené la guitarra en el aire suspendida suavemente por el mástil (para no amortiguar el fondo con tu cuerpo) y dale un pequeño golpe con la yema del nudillo en el puente o en el centro de la tapa inferior.
-5. Leé el espectro: Verás responder a la gráfica con picos muy marcados. El pico más bajo y marcado suele ser la resonancia del aire (modo Helmholtz), y el siguiente pico dominante corresponde al modo fundamental de la tapa.</p>
-<p>### La física al servicio del criterio</p>
-<p>Medir una guitarra con herramientas accesibles no reemplaza el criterio auditivo ni la experiencia técnica para evaluar la calidad de un instrumento, pero elimina la adivinación. Te permite comprobar datos objetivos: confirmar si dos guitarras del mismo modelo tienen una resonancia similar, o verificar cómo varía la rigidez del instrumento según los cambios de humedad ambiente a lo largo del año.</p>
-<p>La ciencia de la acústica no está para quitarle la emoción a la música ni la magia a la luthería, sino para darnos herramientas claras que nos ayuden a entender mejor cómo funciona cada milímetro de madera que vibra en nuestras manos.</p></main>
+<main><p>En el mundo de la luthería es muy común escuchar hablar de las "maderas tonales" como si tuvieran una propiedad mística e inexplicable. Seguro más de una vez leíste o escuchaste que cierta especie de madera tiene "alma" o un secreto reservado solo para unos pocos instrumentos elegidos. Sin embargo, cuando dejamos de lado la mitología y miramos la física acústica, la realidad es mucho más clara, lógica y apasionante.</p>
+<p>Una madera no suena bien por arte de magia. Su respuesta sonora es el resultado directo de sus propiedades físicas y mecánicas. Cuando los luthiers decimos que una pieza de madera es apta para un instrumento o que resulta "musical", en realidad nos referimos a que combina de manera equilibrada variables objetivas: densidad, rigidez, amortiguamiento interno y velocidad de propagación del sonido.</p>
+<p>En este artículo vamos a repasar qué significan estos conceptos, cómo interactúan entre sí y por qué entender la física del material te ayuda a comprender mejor cómo funciona tu instrumento.</p>
+<p>1. Densidad: el peso de las cosas</p>
+<p>La densidad es la relación entre la masa de la madera y su volumen. En términos sencillos: cuánto pesa un bloque de un tamaño determinado.</p>
+<p>En la construcción de instrumentos, la densidad influye directamente en la energía necesaria para hacer vibrar una pieza. Por ejemplo, para la tapa armónica de una guitarra acústica se suelen buscar maderas de menor densidad, como el pino abeto o el cedro. ¿Por qué? Porque una tapa más liviana requiere menos energía por parte de la cuerda para ponerse en movimiento y mover el aire.</p>
+<p>Por el contrario, para componentes como el mástil o el diapasón se buscan maderas más densas. En esa zona del instrumento necesitamos masa y firmeza para sostener la tensión de las cuerdas sin flexiones indeseadas y para evitar que la energía de la cuerda se pierda por deformación de la estructura. No existe una densidad "perfecta" universal: una madera liviana no es mejor ni peor que una pesada, todo depende del rol acústico y estructural que cumple esa pieza.</p>
+<p>2. Rigidez y Módulo de Elasticidad: la resistencia a flexionar</p>
+<p>La rigidez indica cuánto se resiste la madera a doblarse cuando se le aplica una fuerza. En física, esta propiedad se mide a través del Módulo de Elasticidad (o Módulo de Young).</p>
+<p>Un aspecto clave de la madera es que no es homogénea: es un material anisotrópico. Esto significa que sus propiedades cambian según la dirección. La rigidez a lo largo de la veta (longitudinal) es considerablemente mayor que la rigidez a través de la veta (transversal). Por eso el tipo de corte es determinante. El corte radial o en cuartos ("quarter-sawn") alinea las vetas de forma perpendicular a la cara de la tabla, ofreciendo la máxima rigidez longitudinal y una estabilidad estructural superior.</p>
+<p>La combinación entre rigidez y densidad determina qué tan rápido viaja la onda sonora por el material. La velocidad del sonido en la madera aumenta a mayor rigidez y menor densidad. Cuando una pieza es rígida y liviana al mismo tiempo, las ondas mecánicas se desplazan por ella con gran velocidad.</p>
+<p>3. Amortiguamiento interno: la memoria vibratoria del material</p>
+<p>Este es uno de los conceptos más interesantes y menos difundidos. El amortiguamiento interno (o factor de pérdida) mide la capacidad del material para absorber energía vibratoria y convertirla en calor en lugar de sonido.</p>
+<p>Pensalo con un ejemplo simple: si golpeás una barra de metal suspendida, vas a escuchar un tono claro que sostiene su sonido durante varios segundos. El metal tiene un amortiguamiento interno bajo. Si golpeás un trozo de goma, el sonido es un impacto sordo que desaparece al instante: la goma tiene un amortiguamiento interno muy alto.</p>
+<p>En la madera ocurre algo similar. Una pieza con bajo amortiguamiento interno conserva la energía de la vibración por más tiempo, favoreciendo lo que conocemos como sustain y entregando una resonancia bien definida. Por otro lado, maderas con mayor amortiguamiento absorben más rápido ciertas frecuencias, generando una respuesta de sonido más suave o un ataque más acotado. Ninguna de las dos opciones es incorrecta; simplemente responden a diferentes diseños e intenciones sonoras.</p>
+<p>4. Eficiencia de radiación acústica</p>
+<p>Al poner en relación la velocidad del sonido en la madera con su densidad, obtenemos el coeficiente de radiación acústica. Este parámetro mide qué tan eficiente es la madera para convertir la energía vibratoria de la estructura en ondas sonoras audibles en el aire.</p>
+<p>Las maderas con alto coeficiente de radiación son las indicadas para tapas armónicas, ya que logran transformar la modesta energía de una cuerda impulsada por los dedos o la púa en un volumen audible claro y amplio.</p>
+<p>5. Estabilidad, secado y técnica</p>
+<p>Podemos seleccionar un bloque de madera con valores teóricos ideales de densidad y rigidez, pero si la pieza no tuvo un proceso de secado correcto, el comportamiento mecánico va a ser inestable. </p>
+<p>El secado controlado reduce el contenido de humedad de la madera hasta alcanzar un punto de equilibrio con el ambiente. Durante este proceso, las paredes celulares se contraen y la estructura física se asienta. Un correcto estacionamiento libera tensiones internas, garantizando que el instrumento mantenga su calibración, su afinación y su respuesta estructural a lo largo del tiempo.</p>
+<p>Conclusión</p>
+<p>Cuando te preguntes qué hace "musical" a una madera, recordá que no hay misterios inalcanzables ni fórmulas mágicas. La respuesta está en la física: la masa adecuada, la rigidez precisa en la dirección correcta y el nivel de amortiguamiento apropiado para la función de cada pieza.</p>
+<p>Entender la luthería desde sus bases mecánicas no le quita emoción al instrumento. Al contrario: te permite valorar el trabajo de selección técnica y la precisión necesarias para transformar una pieza de madera en un instrumento confiable, estable y listo para sonar.</p></main>
 <footer>© Musselli — Guitar Tech · Luthier</footer>
 </body>
 </html>
