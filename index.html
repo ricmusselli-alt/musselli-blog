@@ -1,54 +1,619 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#141212">
 <title>Musselli — Blog de Lutería y Guitar Tech</title>
-<meta name="description" content="Artículos técnicos sobre construcción, reparación y mantenimiento de guitarras, escritos con criterio de luthier.">
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Artículos técnicos sobre construcción, reparación, calibración y mantenimiento de guitarras, escritos con criterio de luthier.">
+<link rel="canonical" href="https://blog.ricardomusselli.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Musselli — Luthería & Guitar Tech">
+<meta property="og:title" content="Musselli — Blog de Lutería y Guitar Tech">
+<meta property="og:description" content="Conocimiento técnico real de taller: construcción, reparación, calibración y mantenimiento de guitarras.">
+<meta property="og:url" content="https://blog.ricardomusselli.com/">
+
+<!-- Tipografías de marca: Cormorant Garamond (títulos) + Jost (cuerpo), las mismas
+     que usa ricardomusselli.com. En la web central están self-hosteadas; acá, al
+     ser un repo estático aparte, se cargan desde Google Fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- marca <html> como con-JS: sólo entonces se aplica el estado inicial oculto de las
+     animaciones de aparición. Sin JS (o si algo falla) el contenido se ve siempre. -->
+<script>document.documentElement.className += " js";</script>
+
+<!-- MailerLite Universal (cuenta 2464046) — renderiza el formulario embebido data-form="Ks6Kiw" -->
+<script>
+  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+  .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+  n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+  ml('account', '2464046');
+</script>
+
 <style>
-  :root { --negro:#141212; --borgona:#5D0002; --hueso:#F5F0E6; --crema:#F3ECE1; --dorado:#CCA353; --cobre:#C89B6C; }
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body { font-family:'Poppins',sans-serif; background:var(--hueso); color:#2a2723; }
-  header { background:var(--negro); padding:18px 40px; }
-  .logo { font-family:'Lora',serif; font-weight:700; font-size:20px; color:var(--hueso); }
-  .logo span { color:var(--dorado); }
+  :root{
+    --negro:#141212;
+    --negro-2:#0e0d0c;
+    --panel:#171310;
+    --borgona:#5D0002;
+    --hueso:#F5F0E6;
+    --crema:#F3ECE1;
+    --dorado:#CCA353;
+    --cobre:#C89B6C;
 
-  .featured { position:relative; min-height:420px; background:var(--negro); display:flex; align-items:flex-end; padding:48px 40px; background-size:cover; background-position:center; }
-  .featured::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,18,18,0.1) 0%, rgba(20,18,18,0.92) 100%); }
-  .featured-inner { position:relative; max-width:760px; }
-  .kicker { display:inline-block; background:var(--borgona); color:var(--crema); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; margin-bottom:14px; }
-  .featured h1 { font-family:'Lora',serif; font-size:36px; color:var(--hueso); line-height:1.25; margin-bottom:10px; }
-  .featured p { color:#cfc8ba; font-size:15px; max-width:600px; }
-  .featured a { text-decoration:none; }
+    --texto:#FBFBFB;
+    --texto-2:#d8d2c8;
+    --texto-3:#d2ccc1;
+    --texto-mute:#8a8275;
+    --texto-dim:#5f594f;
 
-  .grid-wrap { max-width:1000px; margin:0 auto; padding:48px 40px; }
-  .grid-title { font-family:'Lora',serif; font-size:20px; margin-bottom:24px; color:var(--negro); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:24px; }
-  .card { text-decoration:none; color:inherit; display:block; }
-  .card .thumb { height:160px; background:#ddd6c8; background-size:cover; background-position:center; margin-bottom:12px; border-left:3px solid var(--dorado); }
-  .card .cat { font-size:10px; color:var(--borgona); text-transform:uppercase; letter-spacing:0.8px; font-weight:600; }
-  .card h3 { font-family:'Lora',serif; font-size:16px; margin:6px 0; line-height:1.4; color:var(--negro); }
-  .card .date { font-size:12px; color:#8a857c; }
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'Jost', system-ui, -apple-system, sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--negro); color:var(--texto);
+    font-family:var(--sans); font-weight:300;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  ::selection{ background:var(--borgona); color:var(--texto); }
+  a{ color:inherit; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  img{ max-width:100%; display:block; }
+  input::placeholder{ color:#7c7568; }
 
-  #empty { color:#8a857c; padding:40px; text-align:center; }
-  footer { background:var(--negro); padding:24px; text-align:center; color:#6b6355; font-size:12px; }
+  .js [data-reveal]{ opacity:0; transform:translateY(28px); transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); will-change:opacity, transform; }
+  .js [data-reveal].in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){ .js [data-reveal]{ opacity:1; transform:none; transition:none; } }
+
+  .kicker{
+    font-family:var(--sans); font-weight:400;
+    font-size:12px; letter-spacing:.38em; text-transform:uppercase;
+    color:var(--cobre);
+  }
+
+  /* ---------------- HEADER ---------------- */
+  header.site{
+    position:sticky; top:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    padding:18px clamp(20px,4vw,56px);
+    background:rgba(20,18,18,.86);
+    backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);
+    border-bottom:1px solid rgba(200,155,108,.14);
+  }
+  header.site .logo img{ height:40px; width:auto; }
+  header.site .logo .fallback{
+    font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:.14em; color:var(--texto);
+  }
+  header.site .logo .fallback b{ color:var(--dorado); font-weight:600; }
+  header.site nav{ display:flex; align-items:center; gap:clamp(14px,1.9vw,28px); }
+  header.site nav a, header.site nav span{
+    font-family:var(--sans); font-weight:400;
+    font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--texto-2); white-space:nowrap; transition:color .25s ease;
+  }
+  header.site nav a:hover{ color:var(--cobre); }
+  header.site nav .sep{ width:1px; height:15px; background:rgba(200,155,108,.3); }
+  header.site nav .soon{ color:var(--texto-dim); cursor:default; }
+  header.site nav .login{
+    color:var(--texto); border:1px solid rgba(200,155,108,.5); padding:9px 16px;
+    transition:background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .nav-drop--login:hover .login{ background:var(--cobre); color:var(--negro); border-color:var(--cobre); }
+  .nav-drop--login:hover .login .caret{ color:var(--negro); }
+
+  /* -- dropdown "Formación" (mismo comportamiento que ricardomusselli.com) -- */
+  .nav-drop{ position:relative; display:inline-flex; align-items:center; }
+  .nav-drop__trigger{ display:inline-flex; align-items:center; }
+  .nav-drop .caret{ font-style:normal; font-size:8px; margin-left:6px; transition:transform .2s ease, color .2s ease; }
+  .nav-drop:hover .caret, .nav-drop:focus-within .caret{ transform:rotate(180deg); color:var(--cobre); }
+  .nav-drop::after{ content:""; position:absolute; top:100%; left:0; right:0; height:16px; }  /* puente de hover */
+  .navpanel{
+    position:absolute; top:100%; left:50%; transform:translate(-50%,-6px);
+    margin-top:14px; min-width:184px;
+    display:flex; flex-direction:column; padding:6px;
+    background:rgba(14,13,12,.985); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-radius:6px; box-shadow:0 20px 44px rgba(0,0,0,.5);
+    opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;
+  }
+  .nav-drop:hover .navpanel, .nav-drop:focus-within .navpanel{ opacity:1; transform:translate(-50%,0); pointer-events:auto; }
+  .navpanel--right{ left:auto; right:0; transform:translate(0,-6px); }
+  .nav-drop--login:hover .navpanel--right{ transform:translate(0,0); }
+  .navpanel__link{
+    display:block; color:var(--texto-2); font-family:var(--sans);
+    font-size:12.5px; font-weight:400; letter-spacing:.06em; text-transform:none;
+    padding:10px 12px; border-radius:3px; white-space:nowrap;
+    transition:color .2s ease, background .2s ease;
+  }
+  .navpanel__link:hover{ color:var(--cobre); background:rgba(200,155,108,.08); }
+
+  header.site .burger{ display:none; background:none; border:0; cursor:pointer; flex-direction:column; gap:5px; padding:6px; }
+  header.site .burger span{ width:24px; height:1.5px; background:var(--texto); display:block; }
+
+  .mobilemenu{
+    position:fixed; inset:0; z-index:59;
+    background:rgba(15,13,12,.98); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    opacity:0; pointer-events:none; transition:opacity .4s ease;
+  }
+  .mobilemenu.open{ opacity:1; pointer-events:auto; }
+  .mobilemenu a{ font-family:var(--serif); font-size:17px; letter-spacing:.2em; text-transform:uppercase; color:var(--texto); }
+  .mobilemenu a[aria-current="page"]{ color:var(--cobre); }
+  .mobilemenu .login{ margin-top:10px; background:var(--borgona); color:var(--texto); font-family:var(--sans); font-size:12px; letter-spacing:.18em; padding:13px 30px; }
+  .mobilemenu .close{ position:absolute; top:20px; right:22px; background:none; border:0; color:var(--texto); font-size:30px; line-height:1; cursor:pointer; }
+  /* acordeón "Formación" en el menú móvil */
+  .mm-acc{ text-align:center; }
+  .mm-acc__btn{
+    background:none; border:0; cursor:pointer; color:var(--texto);
+    font-family:var(--serif); font-size:17px; letter-spacing:.2em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .mm-acc__btn .caret{ font-style:normal; font-size:10px; transition:transform .25s ease; }
+  .mm-acc.open .mm-acc__btn{ color:var(--cobre); }
+  .mm-acc.open .mm-acc__btn .caret{ transform:rotate(180deg); }
+  .mm-acc__panel{ overflow:hidden; max-height:0; transition:max-height .3s ease; }
+  .mm-acc.open .mm-acc__panel{ max-height:160px; }
+  .mm-acc__inner{ padding-top:4px; }
+  .mm-acc__inner a{
+    display:block; padding:12px 0 0; font-family:var(--sans); font-size:13px;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--texto-2);
+  }
+  .mobilemenu .soon{ color:var(--texto-dim); font-family:var(--serif); font-size:17px; letter-spacing:.2em; text-transform:uppercase; }
+  /* "Iniciar sesión" móvil: mantiene peso de botón borgoña */
+  .mm-acc--login{ margin-top:6px; }
+  .mm-acc--login .mm-acc__btn{
+    background:var(--borgona); color:var(--texto);
+    font-family:var(--sans); font-size:12px; letter-spacing:.18em; padding:13px 30px;
+  }
+  .mm-acc--login.open .mm-acc__btn{ color:var(--texto); }
+  .mm-acc--login .mm-acc__inner{ text-align:center; }
+
+  /* ---------------- HERO (con foto) — patrón "apaisado" de las páginas internas:
+     texto abajo-izquierda, Cormorant Garamond grande con interlineado apretado ---- */
+  .hero{
+    position:relative; overflow:hidden;
+    min-height:clamp(440px, 64vh, 640px);
+    display:flex; align-items:flex-end;
+  }
+  .hero__bg{
+    position:absolute; inset:0;
+    /* TODO: reemplazar por la foto hero definitiva del blog (idealmente oscura, de taller) */
+    background:url('assets-site/blog-hero.jpg') center 42% / cover no-repeat #0e0d0c;
+    filter:brightness(.82) saturate(.95);
+  }
+  .hero__grad{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg,
+      rgba(14,13,12,.30) 0%, rgba(20,18,18,.20) 24%, rgba(20,18,18,.48) 56%, rgba(14,13,12,.92) 86%, var(--negro) 100%);
+  }
+  .hero__vig{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(90deg, rgba(14,13,12,.55) 0%, rgba(20,18,18,.15) 42%, rgba(20,18,18,0) 70%),
+      radial-gradient(130% 120% at 30% 90%, rgba(14,13,12,0) 55%, rgba(14,13,12,.5) 100%);
+  }
+  .hero__inner{
+    position:relative; z-index:3;
+    width:100%; max-width:920px;
+    padding:150px clamp(20px,5vw,64px) clamp(48px,6vw,76px);
+  }
+  .hero .kicker{
+    display:block; margin-bottom:22px;
+    font-size:11px; letter-spacing:.4em;
+    text-shadow:0 2px 14px rgba(0,0,0,.7);
+  }
+  .hero h1{
+    font-family:var(--serif); font-weight:400;
+    font-size:clamp(2.2rem, 5.4vw, 4.4rem); line-height:1.04; letter-spacing:.01em;
+    margin:0 0 24px; color:var(--texto); text-wrap:balance; max-width:min(22ch, 100%);
+    text-shadow:0 2px 34px rgba(0,0,0,.72), 0 1px 6px rgba(0,0,0,.55);
+  }
+  .hero h1 em{ font-style:italic; color:#e7b877; }
+  .hero .lede{
+    font-size:clamp(15px, 1.7vw, 19px); line-height:1.7; color:#c4bcb1;
+    font-weight:300; margin:0; max-width:min(600px, 100%);
+    text-shadow:0 1px 12px rgba(0,0,0,.6);
+  }
+
+  /* ---------------- CAPTURA DE EMAIL (compacta) ---------------- */
+  .subscribe{
+    position:relative; overflow:hidden;
+    background:var(--negro-2);
+    border-top:1px solid rgba(200,155,108,.14);
+    border-bottom:1px solid rgba(200,155,108,.14);
+    padding:clamp(26px,4vw,40px) clamp(20px,5vw,64px);
+  }
+  .subscribe::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(135deg, rgba(200,155,108,.03) 0 2px, transparent 2px 14px);
+    pointer-events:none;
+  }
+  .subscribe .inner{
+    position:relative; max-width:1040px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; gap:24px 40px; flex-wrap:wrap;
+  }
+  .subscribe .txt{ display:flex; flex-direction:column; gap:4px; min-width:min(100%, 320px); }
+  .subscribe .txt .row1{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .subscribe .badge{
+    display:inline-block; font-family:var(--sans); font-size:9.5px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--texto); background:var(--borgona); padding:5px 11px;
+  }
+  .subscribe h2{
+    font-family:var(--serif); font-weight:400; font-size:clamp(1.35rem, 2.4vw, 1.75rem); line-height:1.2;
+    margin:0; color:var(--texto);
+  }
+  .subscribe h2 em{ font-style:italic; color:var(--cobre); }
+  .subscribe p{ font-size:12.5px; line-height:1.55; color:var(--texto-mute); font-weight:300; margin:0; }
+  .subscribe form{ display:flex; gap:10px; flex-wrap:wrap; }
+  .subscribe input[type=email]{
+    font-family:var(--sans); font-size:13.5px; font-weight:300;
+    background:var(--negro); color:var(--texto);
+    border:1px solid rgba(200,155,108,.3); padding:13px 16px;
+    width:260px; max-width:100%; outline:none; transition:border-color .2s ease;
+  }
+  .subscribe input[type=email]:focus{ border-color:var(--cobre); }
+  .subscribe button{
+    font-family:var(--sans); cursor:pointer;
+    background:var(--borgona); color:var(--texto); border:0;
+    padding:13px 26px; font-size:11.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .22s ease;
+  }
+  .subscribe button:hover{ background:#7a0a0c; }
+  .subscribe .ok{ font-family:var(--serif); font-style:italic; font-size:18px; color:var(--cobre); }
+
+  /* --- MailerLite: adaptar el formulario embebido a la estética del blog --- */
+  .subscribe .ml-embedded{ flex:0 1 auto; min-width:min(100%, 300px); }
+  .subscribe .ml-form-embedContainer,
+  .subscribe .ml-form-align-center,
+  .subscribe .ml-form-align-left,
+  .subscribe .ml-form-embedWrapper,
+  .subscribe .ml-form-embedBody{
+    background:transparent !important; border:0 !important; box-shadow:none !important;
+    max-width:none !important; width:100% !important; margin:0 !important; padding:0 !important;
+  }
+  .subscribe .ml-form-embedContent,
+  .subscribe .ml-form-embedBody .ml-form-fieldRow label,
+  .subscribe .ml-form-embedBody .ml-field-group label{ display:none !important; }
+  .subscribe .ml-form-formContent,
+  .subscribe .ml-form-fieldRow,
+  .subscribe .ml-form-embedSubmit{ margin:0 !important; padding:0 !important; }
+  .subscribe .ml-form-embedBody form{ display:flex !important; flex-wrap:wrap; gap:10px !important; align-items:center; }
+  .subscribe .ml-form-embedBody input.form-control{
+    font-family:var(--sans) !important; font-size:13.5px !important; font-weight:300 !important;
+    background:var(--negro) !important; color:var(--texto) !important;
+    border:1px solid rgba(200,155,108,.3) !important; border-radius:0 !important;
+    padding:13px 16px !important; height:auto !important; width:260px !important; max-width:100% !important;
+    box-shadow:none !important;
+  }
+  .subscribe .ml-form-embedBody input.form-control::placeholder{ color:#7c7568 !important; }
+  .subscribe .ml-form-embedBody input.form-control:focus{ border-color:var(--cobre) !important; }
+  .subscribe .ml-form-embedSubmit button{
+    font-family:var(--sans) !important; cursor:pointer;
+    background:var(--borgona) !important; color:var(--texto) !important; border:0 !important; border-radius:0 !important;
+    padding:13px 26px !important; font-size:11.5px !important; font-weight:600 !important;
+    letter-spacing:.18em !important; text-transform:uppercase !important; height:auto !important; box-shadow:none !important;
+  }
+  .subscribe .ml-form-embedSubmit button:hover{ background:#7a0a0c !important; }
+  .subscribe .ml-form-embedSubmit button.loading{ background:#7a0a0c !important; }
+  .subscribe .ml-form-successBody{ padding:0 !important; }
+  .subscribe .ml-form-successContent h4{
+    font-family:var(--serif) !important; font-style:italic !important; font-weight:400 !important;
+    font-size:19px !important; color:var(--cobre) !important; margin:0 !important;
+  }
+  .subscribe .ml-form-successContent p{ font-size:12.5px !important; color:var(--texto-mute) !important; margin:6px 0 0 !important; }
+  .subscribe .ml-form-embedBody .ml-form-checkboxRow,
+  .subscribe .ml-form-embedBody .ml-error{ color:var(--texto-mute) !important; font-family:var(--sans) !important; }
+  /* mismos overrides pero con el id del contenedor, para ganarle a los estilos que
+     inyecta universal.js (scoped por #mlb2-…). */
+  .subscribe [id^="mlb2-"] .ml-form-embedBody input.form-control,
+  .subscribe #mlb2-Ks6Kiw .ml-form-embedBody input.form-control{
+    background:var(--negro) !important; color:var(--texto) !important;
+    border:1px solid rgba(200,155,108,.3) !important; border-radius:0 !important; box-shadow:none !important;
+    font-family:var(--sans) !important; padding:13px 16px !important;
+  }
+  .subscribe [id^="mlb2-"] .ml-form-embedSubmit button,
+  .subscribe #mlb2-Ks6Kiw .ml-form-embedSubmit button{
+    background:var(--borgona) !important; color:var(--texto) !important;
+    border:0 !important; border-radius:0 !important; box-shadow:none !important;
+    font-family:var(--sans) !important; font-weight:600 !important;
+    letter-spacing:.18em !important; text-transform:uppercase !important; padding:13px 26px !important;
+  }
+  .subscribe [id^="mlb2-"] .ml-form-embedContent,
+  .subscribe #mlb2-Ks6Kiw .ml-form-embedContent{ display:none !important; }
+
+  /* ---------------- SECCIONES DE POSTS ---------------- */
+  .section{ padding:clamp(56px,9vw,110px) clamp(20px,5vw,64px); max-width:1240px; margin:0 auto; }
+  .section + .section{ padding-top:0; }
+  .section-head{ text-align:center; margin-bottom:clamp(30px,4.5vw,48px); }
+  .section-head .kicker{ display:block; margin-bottom:14px; }
+  .section-head h2{
+    font-family:var(--serif); font-weight:500; font-size:clamp(1.9rem,3.6vw,2.6rem); line-height:1.18;
+    margin:0; color:var(--texto);
+  }
+  .section-head p{ font-size:13px; color:var(--texto-mute); font-weight:300; letter-spacing:.02em; margin:10px 0 0; }
+
+  /* tarjeta estilo blog: FOTO arriba + texto debajo */
+  a.post{
+    display:flex; flex-direction:column;
+    background:var(--panel);
+    border:1px solid rgba(200,155,108,.16);
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  a.post:hover{ transform:translateY(-4px); border-color:rgba(200,155,108,.42); }
+  a.post .thumb{
+    position:relative; overflow:hidden; aspect-ratio:3 / 2;
+    background:#1a1712;
+    border-bottom:1px solid rgba(200,155,108,.14);
+  }
+  a.post .thumb .img{
+    position:absolute; inset:0; width:100%; height:100%;
+    background:#1a1712 center/cover no-repeat;
+    filter:brightness(1.04) saturate(1.03);
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  a.post:hover .thumb .img{ transform:scale(1.05); }
+  /* tarjeta SIN foto: sin recuadro vacío, sólo un filete cobre arriba */
+  a.post.no-img{ border-top:2px solid var(--cobre); }
+  a.post.no-img .body{ padding-top:24px; }
+  a.post .body{ padding:20px 22px 24px; display:flex; flex-direction:column; gap:9px; flex:1; }
+  a.post .cat{
+    font-family:var(--sans); font-size:10.5px; font-weight:600; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--cobre);
+  }
+  a.post h3{
+    font-family:var(--serif); font-weight:500; line-height:1.2; color:var(--texto);
+    margin:0; transition:color .2s ease;
+  }
+  a.post:hover h3{ color:var(--cobre); }
+  a.post .excerpt{
+    font-family:var(--sans); font-size:13px; line-height:1.62; color:var(--texto-mute); font-weight:300;
+    margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  a.post .date{
+    font-family:var(--sans); font-size:12px; letter-spacing:.05em; color:var(--texto-dim); font-weight:300;
+    margin-top:auto; padding-top:6px;
+  }
+
+  /* destacado: full-width, foto más ancha, título más grande */
+  .featured a.post .thumb{ aspect-ratio:16 / 7; }
+  .featured a.post .body{ padding:26px clamp(24px,3vw,40px) 30px; gap:12px; }
+  .featured a.post h3{ font-size:clamp(1.55rem, 2.8vw, 2.2rem); max-width:24ch; }
+  .featured a.post .cat{ font-size:11px; }
+  .featured a.post .excerpt{ font-size:14px; -webkit-line-clamp:3; max-width:62ch; }
+
+  /* destacado: split horizontal en desktop (foto izq / texto der) */
+  @media (min-width:820px){
+    .featured a.post{ flex-direction:row; align-items:stretch; min-height:clamp(300px, 33vw, 400px); }
+    .featured a.post .thumb{ flex:0 0 56%; aspect-ratio:auto; border-bottom:0; border-right:1px solid rgba(200,155,108,.14); }
+    .featured a.post.no-img{ border-top:0; border-left:2px solid var(--cobre); min-height:0; }
+    .featured a.post .body{ justify-content:center; padding:clamp(28px,3.6vw,52px); }
+    .featured a.post.no-img .body{ justify-content:flex-start; }
+  }
+
+  /* grilla cronológica */
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap:clamp(18px, 2.4vw, 26px); align-items:start;
+  }
+  .grid a.post h3{ font-size:clamp(1.15rem, 1.7vw, 1.42rem); }
+
+  #empty{ text-align:center; color:var(--texto-mute); font-family:var(--serif); font-style:italic; font-size:20px; padding:60px 20px; }
+
+  .more-wrap{ text-align:center; margin-top:clamp(30px,4vw,44px); }
+  .more-wrap[hidden]{ display:none; }
+  .more-btn{
+    font-family:var(--sans); cursor:pointer;
+    background:transparent; color:var(--texto);
+    border:1px solid rgba(200,155,108,.45);
+    padding:14px 30px; font-size:12px; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .22s ease, color .22s ease, border-color .22s ease;
+  }
+  .more-btn:hover{ background:var(--cobre); border-color:var(--cobre); color:var(--negro); }
+
+  /* ---------------- FOOTER ---------------- */
+  footer.site{
+    padding:clamp(52px,8vw,80px) clamp(20px,5vw,64px) 36px;
+    border-top:1px solid rgba(200,155,108,.1);
+  }
+  footer.site .cols{
+    max-width:1240px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:40px;
+  }
+  footer.site .brand img{ height:38px; width:auto; }
+  footer.site .brand .fallback{ font-family:var(--serif); font-weight:600; font-size:17px; letter-spacing:.14em; color:var(--texto); }
+  footer.site .brand .fallback b{ color:var(--dorado); }
+  footer.site .brand p{ font-size:13px; line-height:1.7; color:var(--texto-mute); font-weight:300; margin:16px 0 0; max-width:280px; }
+  footer.site .col-title{
+    font-family:var(--sans); font-size:10px; letter-spacing:.3em; text-transform:uppercase;
+    color:var(--cobre); margin-bottom:16px;
+  }
+  footer.site .col-links{ display:flex; flex-direction:column; gap:12px; }
+  footer.site .col-links a, footer.site .col-links span{ font-size:13px; font-weight:300; color:#c4bcb1; transition:color .2s ease; }
+  footer.site .col-links a:hover{ color:var(--cobre); }
+  footer.site .bottom{
+    max-width:1240px; margin:44px auto 0; padding-top:22px;
+    border-top:1px solid rgba(200,155,108,.1);
+    font-size:12px; color:#6b6358; letter-spacing:.04em;
+    display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between;
+  }
+
+  .wa{
+    position:fixed; bottom:24px; right:24px; z-index:55;
+    width:56px; height:56px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 26px rgba(0,0,0,.5); transition:transform .25s ease;
+  }
+  .wa:hover{ transform:scale(1.08); }
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width:1040px){
+    header.site nav{ display:none; }
+    header.site .burger{ display:flex; }
+  }
+  @media (max-width:760px){
+    .subscribe .inner{ justify-content:center; text-align:center; }
+    .subscribe .txt{ align-items:center; }
+    .subscribe .txt .row1{ justify-content:center; }
+    .subscribe form{ width:100%; justify-content:center; }
+    .subscribe input[type=email]{ flex:1 1 auto; }
+    .featured a.post .thumb{ aspect-ratio:16 / 9; }
+    footer.site .bottom{ flex-direction:column; }
+  }
+  @media (max-width:520px){
+    .subscribe form{ flex-direction:column; }
+    .subscribe input[type=email], .subscribe button{ width:100%; }
+  }
 </style>
 </head>
 <body>
 
-<header><img src="assets-site/logo-institucional-blanco.png" alt="Musselli Luthería · Guitar Tech" style="height:32px;"></header>
+<header class="site">
+  <a class="logo" href="/">
+    <img src="assets-site/logo_institucional_blanco.png" alt="Musselli — Luthería · Guitar Tech"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+    <span class="fallback" style="display:none">MUSSELLI <b>·</b> Blog</span>
+  </a>
+  <nav>
+    <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+    <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+    <span class="nav-drop">
+      <a class="nav-drop__trigger" href="https://www.ricardomusselli.com/formacion">Formación<i class="caret">&#9662;</i></a>
+      <span class="navpanel">
+        <a class="navpanel__link" href="https://www.ricardomusselli.com/formacion-lutheria">Luthería</a>
+        <a class="navpanel__link" href="https://www.ricardomusselli.com/formacion-guitar-tech">Guitar Tech</a>
+      </span>
+    </span>
+    <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+    <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+    <span class="soon" title="Próximamente">App</span>
+    <span class="sep"></span>
+    <span class="nav-drop nav-drop--login">
+      <a class="nav-drop__trigger login" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Iniciar sesión<i class="caret">&#9662;</i></a>
+      <span class="navpanel navpanel--right">
+        <a class="navpanel__link" href="https://hotmart.com/es/club/ricardo-musselli-luthier" target="_blank" rel="noopener">Luthería</a>
+        <a class="navpanel__link" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Guitar Tech</a>
+      </span>
+    </span>
+  </nav>
+  <button class="burger" aria-label="Menú" data-open-menu><span></span><span></span><span></span></button>
+</header>
 
-<div id="featured-wrap"></div>
-<div class="grid-wrap">
-  <div class="grid-title">Más publicaciones</div>
-  <div class="grid" id="grid"></div>
-  <div id="empty" style="display:none;">Todavía no hay publicaciones.</div>
+<div class="mobilemenu" id="mobilemenu">
+  <button class="close" aria-label="Cerrar" data-close-menu>&times;</button>
+  <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+  <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+  <div class="mm-acc" data-acc>
+    <button class="mm-acc__btn" data-acc-btn>Formación<i class="caret">&#9662;</i></button>
+    <div class="mm-acc__panel"><div class="mm-acc__inner">
+      <a href="https://www.ricardomusselli.com/formacion-lutheria">Luthería</a>
+      <a href="https://www.ricardomusselli.com/formacion-guitar-tech">Guitar Tech</a>
+    </div></div>
+  </div>
+  <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+  <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+  <span class="soon">App</span>
+  <div class="mm-acc mm-acc--login" data-acc>
+    <button class="mm-acc__btn" data-acc-btn>Iniciar sesión<i class="caret">&#9662;</i></button>
+    <div class="mm-acc__panel"><div class="mm-acc__inner">
+      <a href="https://hotmart.com/es/club/ricardo-musselli-luthier" target="_blank" rel="noopener">Luthería</a>
+      <a href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Guitar Tech</a>
+    </div></div>
+  </div>
 </div>
 
-<footer>© Musselli — Guitar Tech · Luthier</footer>
+<!-- ===== HERO CON FOTO ===== -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__grad"></div>
+  <div class="hero__vig"></div>
+  <div class="hero__inner" data-reveal>
+    <span class="kicker">Blog · Musselli</span>
+    <h1>Criterio de taller para entender <em>tu guitarra.</em></h1>
+    <p class="lede">Todo lo nuevo sobre construcción, reparación, calibración y mantenimiento, sin secretos y sin relleno. Nada de teoría acumulada sin sentido, acá vas a encontrar ayuda real para diagnosticar problemas y trabajar con criterio de taller.</p>
+  </div>
+</section>
+
+<!-- ===== CAPTURA DE EMAIL (compacta) ===== -->
+<section class="subscribe">
+  <div class="inner" data-reveal>
+    <div class="txt">
+      <div class="row1">
+        <span class="badge">Tendencias</span>
+        <h2>Recibí <em>lo nuevo del taller</em>.</h2>
+      </div>
+      <p>Un resumen mensual. Sin spam.</p>
+    </div>
+    <!-- Formulario MailerLite (grupo Tendencias). El CSS de .subscribe .ml-form-* lo adapta
+         a la estética del blog; el título/descripción propios de MailerLite se ocultan. -->
+    <div class="ml-embedded" data-form="Ks6Kiw"></div>
+  </div>
+</section>
+
+<!-- ===== ÚLTIMO POST ===== -->
+<section class="section featured">
+  <div class="section-head" data-reveal><span class="kicker">Lo último</span></div>
+  <div id="featured-wrap" data-reveal></div>
+</section>
+
+<!-- ===== GRILLA CRONOLÓGICA ===== -->
+<section class="section">
+  <div class="section-head" data-reveal>
+    <span class="kicker">El archivo</span>
+    <h2>Más publicaciones</h2>
+    <p>En orden, de lo más nuevo a lo más viejo</p>
+  </div>
+  <div class="grid" id="grid" data-reveal></div>
+  <div class="more-wrap" id="more-wrap" hidden>
+    <button class="more-btn" id="more" type="button">Ver todas las publicaciones</button>
+  </div>
+  <div id="empty" style="display:none;">Todavía no hay publicaciones.</div>
+</section>
+
+<footer class="site">
+  <div class="cols">
+    <div class="brand">
+      <img src="assets-site/logo_institucional_blanco.png" alt="Musselli — Luthería · Guitar Tech"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+      <span class="fallback" style="display:none">MUSSELLI</span>
+      <p>Ricardo Musselli — luthier y guitar tech. Construcción a medida, reparación y formación.</p>
+    </div>
+    <div>
+      <div class="col-title">Navegación</div>
+      <div class="col-links">
+        <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+        <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+        <a href="https://www.ricardomusselli.com/formacion">Formación</a>
+        <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">Contacto</div>
+      <div class="col-links">
+        <a href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog." target="_blank" rel="noopener">WhatsApp · +52 56 2020 8877</a>
+        <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+        <span>Huixquilucan, Edo. de México</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 Ricardo Musselli. Todos los derechos reservados.</span>
+    <span><a href="https://www.ricardomusselli.com/">ricardomusselli.com</a></span>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="29" height="29" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.24-.27.53-.34.71-.34.18 0 .36 0 .51.01.16.01.39-.06.6.46.24.59.81 2.04.88 2.19.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.15-.28.34-.4.46-.13.13-.27.28-.12.54.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.11 1.3.26.13.41.11.57-.07.15-.18.66-.77.84-1.03.18-.27.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.43.2.5.31.06.11.06.65-.18 1.33z"></path></svg>
+</a>
 
 <script>
+/* ================================================================
+   DATOS — sin cambios respecto del blog actual.
+   Mismo fetch a Supabase (list-published), misma forma de datos,
+   mismo orden cronológico (posts[0] = más reciente).
+   ================================================================ */
 const SUPABASE_URL = "https://zquxompfcahmjquobnvk.supabase.co";
 const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpxdXhvbXBmY2FobWpxdW9ibnZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMDk2NjAsImV4cCI6MjEwMzY4NTY2MH0.ZMa0_ZFsEKVK0lRydq1zjxQDcteGXxOKdmr00D-62wk";
 
@@ -60,6 +625,30 @@ function fmtDate(iso) {
   if (!iso) return "";
   const d = new Date(iso);
   return d.toLocaleDateString("es-AR", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+function cardMarkup(p) {
+  const imgUrl = p.hero_image ? `./${esc(p.slug)}/assets/${esc(p.hero_image)}` : "";
+  const thumb = imgUrl
+    ? `<div class="thumb"><div class="img" style="background-image:url('${imgUrl}')"></div></div>`
+    : "";
+  const exc = p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : "";
+  return `
+    <a class="post${imgUrl ? "" : " no-img"}" href="./${esc(p.slug)}/">
+      ${thumb}
+      <div class="body">
+        <div class="cat">${esc(catLabel(p.category))}</div>
+        <h3>${esc(p.title)}</h3>
+        ${exc}
+        <div class="date">${esc(fmtDate(p.published_at))}</div>
+      </div>
+    </a>`;
 }
 
 async function loadPosts() {
@@ -77,32 +666,20 @@ async function loadPosts() {
     }
 
     const [latest, ...rest] = posts;
+    document.getElementById("featured-wrap").innerHTML = cardMarkup(latest);
 
-    const heroUrl = latest.hero_image ? `./${latest.slug}/assets/${latest.hero_image}` : "";
-    document.getElementById("featured-wrap").innerHTML = `
-      <a href="./${latest.slug}/">
-        <div class="featured" style="${heroUrl ? `background-image:url('${heroUrl}')` : ""}">
-          <div class="featured-inner">
-            <span class="kicker">${catLabel(latest.category)}</span>
-            <h1>${latest.title}</h1>
-            <p>${fmtDate(latest.published_at)}</p>
-          </div>
-        </div>
-      </a>
-    `;
-
+    // Grilla: muestra las primeras VISIBLES; el resto se revela con "Ver todas".
+    const VISIBLES = 9;
     const grid = document.getElementById("grid");
-    grid.innerHTML = rest.map((p) => {
-      const thumbUrl = p.hero_image ? `./${p.slug}/assets/${p.hero_image}` : "";
-      return `
-        <a class="card" href="./${p.slug}/">
-          <div class="thumb" style="${thumbUrl ? `background-image:url('${thumbUrl}')` : ""}"></div>
-          <div class="cat">${catLabel(p.category)}</div>
-          <h3>${p.title}</h3>
-          <div class="date">${fmtDate(p.published_at)}</div>
-        </a>
-      `;
-    }).join("");
+    grid.innerHTML = rest.slice(0, VISIBLES).map(cardMarkup).join("");
+    if (rest.length > VISIBLES) {
+      const moreWrap = document.getElementById("more-wrap");
+      moreWrap.hidden = false;
+      document.getElementById("more").addEventListener("click", () => {
+        grid.insertAdjacentHTML("beforeend", rest.slice(VISIBLES).map(cardMarkup).join(""));
+        moreWrap.hidden = true;
+      }, { once: true });
+    }
   } catch (err) {
     document.getElementById("empty").style.display = "block";
     document.getElementById("empty").textContent = "Error cargando publicaciones.";
@@ -111,6 +688,30 @@ async function loadPosts() {
 }
 
 loadPosts();
+
+/* Aparición al hacer scroll (equivalente liviano al site.js de la web central) */
+(function () {
+  const els = document.querySelectorAll("[data-reveal]");
+  if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach((e) => io.observe(e));
+})();
+
+/* Menú móvil + acordeón "Formación" */
+(function () {
+  const mm = document.getElementById("mobilemenu");
+  document.querySelector("[data-open-menu]").addEventListener("click", () => mm.classList.add("open"));
+  document.querySelector("[data-close-menu]").addEventListener("click", () => mm.classList.remove("open"));
+  mm.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => mm.classList.remove("open")));
+  mm.querySelectorAll("[data-acc]").forEach((acc) => {
+    acc.querySelector("[data-acc-btn]").addEventListener("click", () => acc.classList.toggle("open"));
+  });
+})();
+
+/* El formulario de suscripción lo maneja MailerLite (script Universal en <head>,
+   div.ml-embedded[data-form="Ks6Kiw"] en la sección .subscribe). */
 </script>
 </body>
 </html>
