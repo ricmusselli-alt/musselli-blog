@@ -323,7 +323,7 @@
   }
   a.post .thumb .img{
     position:absolute; inset:0; width:100%; height:100%;
-    background:#1a1712 center/cover no-repeat;
+    object-fit:cover; display:block; background:#1a1712;
     filter:brightness(1.04) saturate(1.03);
     transition:transform .8s cubic-bezier(.2,.7,.2,1);
   }
@@ -698,10 +698,38 @@ function esc(s) {
   ));
 }
 
+/* Imágenes por defecto por categoría — se usan cuando el post NO trae hero_image propio.
+   Subí estos archivos a assets-site/ en el repo (JPG, ~1400px de ancho, < 400 KB c/u).
+   Podés poner 1 sola por categoría, o varias: cada post recibe SIEMPRE la misma (según su slug). */
+const FALLBACK_IMG = {
+  "guitar-tech": [
+    "assets-site/cat-guitar-tech-1.jpg",
+    "assets-site/cat-guitar-tech-2.jpg",
+    "assets-site/cat-guitar-tech-3.jpg"
+  ],
+  "luthier": [
+    "assets-site/cat-luthier-1.jpg",
+    "assets-site/cat-luthier-2.jpg",
+    "assets-site/cat-luthier-3.jpg"
+  ]
+};
+
+function fallbackImg(p) {
+  const pool = FALLBACK_IMG[p.category] || FALLBACK_IMG["luthier"] || [];
+  if (!pool.length) return "";
+  let h = 0;
+  for (let i = 0; i < (p.slug || "").length; i++) h = (h * 31 + p.slug.charCodeAt(i)) | 0;
+  return pool[Math.abs(h) % pool.length];
+}
+
 function cardMarkup(p) {
-  const imgUrl = p.hero_image ? `./${esc(p.slug)}/assets/${esc(p.hero_image)}` : "";
+  const imgUrl = p.hero_image
+    ? `./${esc(p.slug)}/assets/${esc(p.hero_image)}`   // foto propia del post (cuando list-published la devuelva)
+    : fallbackImg(p);                                   // si no, imagen de la categoría
+  // <img> con onerror: si la foto no existe (404), la tarjeta cae sola a modo texto (filete cobre).
   const thumb = imgUrl
-    ? `<div class="thumb"><div class="img" style="background-image:url('${imgUrl}')"></div></div>`
+    ? `<div class="thumb"><img class="img" src="${esc(imgUrl)}" alt="" loading="lazy"
+         onerror="var a=this.closest('.post'); if(a)a.classList.add('no-img'); var t=this.closest('.thumb'); if(t)t.remove();"></div>`
     : "";
   const exc = p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : "";
   return `
