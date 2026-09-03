@@ -24,15 +24,6 @@
      animaciones de aparición. Sin JS (o si algo falla) el contenido se ve siempre. -->
 <script>document.documentElement.className += " js";</script>
 
-<!-- MailerLite Universal (cuenta 2464046) — renderiza el formulario embebido data-form="Ks6Kiw" -->
-<script>
-  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-  .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-  n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-  ml('account', '2464046');
-</script>
-
 <style>
   :root{
     --negro:#141212;
@@ -264,65 +255,47 @@
   .subscribe button:hover{ background:#7a0a0c; }
   .subscribe .ok{ font-family:var(--serif); font-style:italic; font-size:18px; color:var(--cobre); }
 
-  /* --- MailerLite: adaptar el formulario embebido a la estética del blog --- */
-  .subscribe .ml-embedded{ flex:0 1 auto; min-width:min(100%, 300px); }
-  .subscribe .ml-form-embedContainer,
+  /* --- Formulario MailerLite (embed HTML) con la estética del blog.
+     El <style> propio de MailerLite se quitó del snippet; acá se estila el markup pelado. --- */
+  .subscribe .ml-form-embedContainer{ margin:0; display:block; flex:1 1 360px; max-width:520px; }
   .subscribe .ml-form-align-center,
-  .subscribe .ml-form-align-left,
   .subscribe .ml-form-embedWrapper,
-  .subscribe .ml-form-embedBody{
-    background:transparent !important; border:0 !important; box-shadow:none !important;
-    max-width:none !important; width:100% !important; margin:0 !important; padding:0 !important;
-  }
-  .subscribe .ml-form-embedContent,
-  .subscribe .ml-form-embedBody .ml-form-fieldRow label,
-  .subscribe .ml-form-embedBody .ml-field-group label{ display:none !important; }
-  .subscribe .ml-form-formContent,
-  .subscribe .ml-form-fieldRow,
-  .subscribe .ml-form-embedSubmit{ margin:0 !important; padding:0 !important; }
-  .subscribe .ml-form-embedBody form{ display:flex !important; flex-wrap:wrap; gap:10px !important; align-items:center; }
+  .subscribe .ml-form-embedBody{ display:block; width:100%; max-width:none; margin:0; padding:0; background:transparent; border:0; }
+  .subscribe .ml-form-embedContent{ display:none; }          /* título propio de ML: usamos el del bloque */
+  .subscribe .ml-block-form{ margin:0; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .subscribe .ml-form-formContent{ margin:0; flex:1 1 180px; min-width:0; }
+  .subscribe .ml-form-fieldRow{ margin:0; }
+  .subscribe .ml-field-group label{ display:none; }
   .subscribe .ml-form-embedBody input.form-control{
-    font-family:var(--sans) !important; font-size:13.5px !important; font-weight:300 !important;
-    background:var(--negro) !important; color:var(--texto) !important;
-    border:1px solid rgba(200,155,108,.3) !important; border-radius:0 !important;
-    padding:13px 16px !important; height:auto !important; width:260px !important; max-width:100% !important;
-    box-shadow:none !important;
+    font-family:var(--sans); font-size:13.5px; font-weight:300;
+    background:var(--negro); color:var(--texto);
+    border:1px solid rgba(200,155,108,.3); border-radius:0;
+    padding:13px 16px; width:100%; max-width:100%; box-sizing:border-box; outline:none;
+    transition:border-color .2s ease;
   }
-  .subscribe .ml-form-embedBody input.form-control::placeholder{ color:#7c7568 !important; }
-  .subscribe .ml-form-embedBody input.form-control:focus{ border-color:var(--cobre) !important; }
-  .subscribe .ml-form-embedSubmit button{
-    font-family:var(--sans) !important; cursor:pointer;
-    background:var(--borgona) !important; color:var(--texto) !important; border:0 !important; border-radius:0 !important;
-    padding:13px 26px !important; font-size:11.5px !important; font-weight:600 !important;
-    letter-spacing:.18em !important; text-transform:uppercase !important; height:auto !important; box-shadow:none !important;
+  .subscribe .ml-form-embedBody input.form-control::placeholder{ color:#7c7568; }
+  .subscribe .ml-form-embedBody input.form-control:focus{ border-color:var(--cobre); }
+  .subscribe .ml-form-embedSubmit{ margin:0; float:none; width:auto; flex:0 0 auto; }
+  .subscribe .ml-form-embedSubmit button.primary{
+    font-family:var(--sans); cursor:pointer;
+    background:var(--borgona); color:var(--texto); border:0; border-radius:0;
+    padding:13px 26px; font-size:11.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+    width:auto; box-shadow:none; transition:background .22s ease;
   }
-  .subscribe .ml-form-embedSubmit button:hover{ background:#7a0a0c !important; }
-  .subscribe .ml-form-embedSubmit button.loading{ background:#7a0a0c !important; }
-  .subscribe .ml-form-successBody{ padding:0 !important; }
+  .subscribe .ml-form-embedSubmit button.primary:hover{ background:#7a0a0c; }
+  .subscribe .ml-form-embedSubmit button.loading{
+    background:var(--borgona); border:0; border-radius:0; padding:13px 20px; width:auto;
+  }
+  .subscribe .ml-form-successBody{ padding:0; }
   .subscribe .ml-form-successContent h4{
-    font-family:var(--serif) !important; font-style:italic !important; font-weight:400 !important;
-    font-size:19px !important; color:var(--cobre) !important; margin:0 !important;
+    font-family:var(--serif); font-style:italic; font-weight:400; font-size:19px; color:var(--cobre); margin:0;
   }
-  .subscribe .ml-form-successContent p{ font-size:12.5px !important; color:var(--texto-mute) !important; margin:6px 0 0 !important; }
-  .subscribe .ml-form-embedBody .ml-form-checkboxRow,
-  .subscribe .ml-form-embedBody .ml-error{ color:var(--texto-mute) !important; font-family:var(--sans) !important; }
-  /* mismos overrides pero con el id del contenedor, para ganarle a los estilos que
-     inyecta universal.js (scoped por #mlb2-…). */
-  .subscribe [id^="mlb2-"] .ml-form-embedBody input.form-control,
-  .subscribe #mlb2-Ks6Kiw .ml-form-embedBody input.form-control{
-    background:var(--negro) !important; color:var(--texto) !important;
-    border:1px solid rgba(200,155,108,.3) !important; border-radius:0 !important; box-shadow:none !important;
-    font-family:var(--sans) !important; padding:13px 16px !important;
+  .subscribe .ml-form-successContent p{ font-family:var(--sans); font-size:12.5px; color:var(--texto-mute); font-weight:300; margin:6px 0 0; }
+  .subscribe .ml-error input{ border-color:#a33 !important; }
+  @media (max-width:520px){
+    .subscribe .ml-block-form{ flex-direction:column; align-items:stretch; }
+    .subscribe .ml-form-embedSubmit button.primary{ width:100%; }
   }
-  .subscribe [id^="mlb2-"] .ml-form-embedSubmit button,
-  .subscribe #mlb2-Ks6Kiw .ml-form-embedSubmit button{
-    background:var(--borgona) !important; color:var(--texto) !important;
-    border:0 !important; border-radius:0 !important; box-shadow:none !important;
-    font-family:var(--sans) !important; font-weight:600 !important;
-    letter-spacing:.18em !important; text-transform:uppercase !important; padding:13px 26px !important;
-  }
-  .subscribe [id^="mlb2-"] .ml-form-embedContent,
-  .subscribe #mlb2-Ks6Kiw .ml-form-embedContent{ display:none !important; }
 
   /* ---------------- SECCIONES DE POSTS ---------------- */
   .section{ padding:clamp(56px,9vw,110px) clamp(20px,5vw,64px); max-width:1240px; margin:0 auto; }
@@ -412,6 +385,47 @@
     transition:background .22s ease, color .22s ease, border-color .22s ease;
   }
   .more-btn:hover{ background:var(--cobre); border-color:var(--cobre); color:var(--negro); }
+
+  /* ---------------- BLOQUE DE CIERRE (tests + whatsapp) — como el de formacion-lutheria ---------------- */
+  .closer{ padding:clamp(20px,3vw,32px) clamp(20px,5vw,64px) clamp(56px,8vw,100px); }
+  .closer__card{
+    position:relative; overflow:hidden;
+    max-width:1100px; margin:0 auto;
+    border:1px solid rgba(200,155,108,.32); background:var(--negro-2);
+    padding:clamp(34px,4.6vw,60px); text-align:center;
+  }
+  .closer__card::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(135deg, rgba(200,155,108,.04) 0 2px, transparent 2px 14px);
+  }
+  .closer__inner{ position:relative; max-width:720px; margin:0 auto; }
+  .closer__badge{
+    display:inline-block; font-family:var(--sans); font-size:10px; letter-spacing:.3em; text-transform:uppercase;
+    color:var(--texto); background:var(--borgona); padding:6px 14px; margin-bottom:22px;
+  }
+  .closer h2{
+    font-family:var(--serif); font-weight:400; font-size:clamp(1.9rem,4vw,3rem); line-height:1.12;
+    margin:0 0 16px; color:var(--texto);
+  }
+  .closer p.lead{
+    font-size:clamp(16px,1.8vw,19px); line-height:1.7; color:var(--texto-3); font-weight:300;
+    margin:0 auto 32px; max-width:600px;
+  }
+  .closer__btns{
+    display:flex; flex-wrap:wrap; align-items:stretch; justify-content:center; gap:14px;
+    max-width:820px; margin:0 auto;
+  }
+  .closer__btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    flex:1 1 220px; padding:16px 18px;
+    font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    text-decoration:none; transition:background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .closer__btn--ghost{ color:var(--texto); border:1px solid rgba(200,155,108,.5); }
+  .closer__btn--ghost:hover{ border-color:var(--cobre); color:var(--cobre); }
+  .closer__btn--wa{ color:var(--texto); background:var(--borgona); box-shadow:0 12px 34px rgba(93,0,2,.45); }
+  .closer__btn--wa:hover{ background:#7a0a0c; }
+  .closer p.fine{ font-size:13px; line-height:1.6; color:var(--texto-mute); font-weight:300; margin:20px 0 0; }
 
   /* ---------------- FOOTER ---------------- */
   footer.site{
@@ -546,9 +560,40 @@
       </div>
       <p>Un resumen mensual. Sin spam.</p>
     </div>
-    <!-- Formulario MailerLite (grupo Tendencias). El CSS de .subscribe .ml-form-* lo adapta
-         a la estética del blog; el título/descripción propios de MailerLite se ocultan. -->
-    <div class="ml-embedded" data-form="Ks6Kiw"></div>
+
+    <!-- Formulario MailerLite (embed HTML) — cuenta 2464046, form 197622863809742178, grupo Tendencias.
+         Se quitó el <style> propio de MailerLite: el markup lo estila .subscribe .ml-form-* del blog. -->
+    <div id="mlb2-45549014" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-45549014">
+      <div class="ml-form-align-center">
+        <div class="ml-form-embedWrapper embedForm">
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2464046/forms/197622863809742178/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                <div class="ml-form-fieldRow ml-last-item">
+                  <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                    <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="tu@correo.com" autocomplete="email">
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="ml-submit" value="1">
+              <div class="ml-form-embedSubmit">
+                <button type="submit" class="primary">Suscribirme</button>
+                <button disabled="disabled" style="display:none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div><span class="sr-only">Cargando…</span>
+                </button>
+              </div>
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+          <div class="ml-form-successBody row-success" style="display:none;">
+            <div class="ml-form-successContent">
+              <h4>¡Listo!</h4>
+              <p>Te vamos a avisar cada vez que salga algo nuevo del taller.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -570,6 +615,26 @@
     <button class="more-btn" id="more" type="button">Ver todas las publicaciones</button>
   </div>
   <div id="empty" style="display:none;">Todavía no hay publicaciones.</div>
+</section>
+
+<!-- ===== BLOQUE DE CIERRE (tests + whatsapp) ===== -->
+<section class="closer">
+  <div class="closer__card" data-reveal>
+    <div class="closer__inner">
+      <span class="closer__badge">¿Alguna duda?</span>
+      <h2>¿Esto te dejó con ganas de saber más?</h2>
+      <p class="lead">Te doy tres caminos: hacé alguno de los test y descubrí exactamente en qué paso estás, o escribime directo y lo charlamos.</p>
+      <div class="closer__btns">
+        <a class="closer__btn closer__btn--ghost" href="https://www.ricardomusselli.com/test-lutheria">Test de Luthería</a>
+        <a class="closer__btn closer__btn--ghost" href="https://www.ricardomusselli.com/test-guitar-tech">Test de Guitar Tech</a>
+        <a class="closer__btn closer__btn--wa" href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog%20y%20quiero%20consultarte%20algo." target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.24-.27.53-.34.71-.34.18 0 .36 0 .51.01.16.01.39-.06.6.46.24.59.81 2.04.88 2.19.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.15-.28.34-.4.46-.13.13-.27.28-.12.54.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.11 1.3.26.13.41.11.57-.07.15-.18.66-.77.84-1.03.18-.27.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.43.2.5.31.06.11.06.65-.18 1.33z"></path></svg>
+          WhatsApp
+        </a>
+      </div>
+      <p class="fine">Te respondo yo, no un bot. Sin compromiso.</p>
+    </div>
+  </div>
 </section>
 
 <footer class="site">
@@ -710,8 +775,20 @@ loadPosts();
   });
 })();
 
-/* El formulario de suscripción lo maneja MailerLite (script Universal en <head>,
-   div.ml-embedded[data-form="Ks6Kiw"] en la sección .subscribe). */
+/* El formulario de suscripción lo maneja MailerLite (embed HTML en la sección .subscribe
+   + webforms.min.js abajo). Al enviar OK, ml_webform_success_45549014 muestra el
+   mensaje de gracias sin recargar. */
 </script>
+
+<!-- MailerLite webforms — maneja el envío AJAX y el estado de éxito del formulario -->
+<script>
+  function ml_webform_success_45549014() {
+    var $ = window.ml_jQuery || window.jQuery;
+    $('.ml-subscribe-form-45549014 .row-success').show();
+    $('.ml-subscribe-form-45549014 .row-form').hide();
+  }
+</script>
+<script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
+<script>fetch("https://assets.mailerlite.com/jsonp/2464046/forms/197622863809742178/takel").catch(function(){});</script>
 </body>
 </html>
