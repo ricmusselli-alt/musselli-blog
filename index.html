@@ -491,6 +491,7 @@
     <span class="fallback" style="display:none">MUSSELLI <b>·</b> Blog</span>
   </a>
   <nav>
+    <a href="https://www.ricardomusselli.com/">Inicio</a>
     <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
     <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
     <span class="nav-drop">
@@ -517,6 +518,7 @@
 
 <div class="mobilemenu" id="mobilemenu">
   <button class="close" aria-label="Cerrar" data-close-menu>&times;</button>
+  <a href="https://www.ricardomusselli.com/">Inicio</a>
   <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
   <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
   <div class="mm-acc" data-acc>
@@ -722,14 +724,25 @@ function fallbackImg(p) {
   return pool[Math.abs(h) % pool.length];
 }
 
+/* Redimensiona/comprime cualquier foto al vuelo (sin tocar el backend).
+   La imagen del repo (aunque pese varios MB) se sirve por un proxy en el ancho que se ve
+   y en WebP. Si el proxy fallara, se usa la imagen original; si esa también falla, tarjeta de texto. */
+function optimize(rel, w) {
+  try {
+    let abs = new URL(rel, location.href).href.replace(/^http:\/\//, "https://");
+    return "https://images.weserv.nl/?url=" + encodeURIComponent(abs.replace(/^https?:\/\//, "")) +
+           "&w=" + w + "&q=78&output=webp&we";
+  } catch (e) { return rel; }
+}
+
 function cardMarkup(p) {
   const imgUrl = p.hero_image
     ? `./${esc(p.slug)}/assets/${esc(p.hero_image)}`   // foto propia del post (cuando list-published la devuelva)
     : fallbackImg(p);                                   // si no, imagen de la categoría
-  // <img> con onerror: si la foto no existe (404), la tarjeta cae sola a modo texto (filete cobre).
   const thumb = imgUrl
-    ? `<div class="thumb"><img class="img" src="${esc(imgUrl)}" alt="" loading="lazy"
-         onerror="var a=this.closest('.post'); if(a)a.classList.add('no-img'); var t=this.closest('.thumb'); if(t)t.remove();"></div>`
+    ? `<div class="thumb"><img class="img" alt="" loading="lazy" decoding="async"
+         src="${esc(optimize(imgUrl, 1000))}" data-fallback="${esc(imgUrl)}"
+         onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');return;} var a=this.closest('.post'); if(a)a.classList.add('no-img'); var t=this.closest('.thumb'); if(t)t.remove();"></div>`
     : "";
   const exc = p.excerpt ? `<p class="excerpt">${esc(p.excerpt)}</p>` : "";
   return `
