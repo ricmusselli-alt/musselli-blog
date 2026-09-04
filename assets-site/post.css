@@ -208,6 +208,13 @@ header.site .burger span{ width:24px; height:1.5px; background:var(--texto); dis
 }
 .article__back{ display:inline-flex; align-items:center; gap:9px; font-family:var(--sans); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--cobre); }
 .article__back:hover{ gap:14px; }
+
+/* flecha de retorno arriba del artículo */
+.article__nav{ max-width:700px; margin:0 auto; padding:clamp(18px,3vw,26px) clamp(20px,5vw,40px) 0; position:relative; z-index:1; }
+.article__navlink{ display:inline-flex; align-items:center; gap:8px; font-family:var(--sans); font-weight:400;
+  font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cobre); transition:gap .2s ease; }
+.article__navlink:hover{ gap:13px; }
+.v2 .article__nav{ text-align:left; }
 .article__share{ font-family:var(--sans); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--texto-mute); display:flex; gap:16px; }
 .article__share a:hover{ color:var(--cobre); }
 @media (max-width:520px){ .article__foot{ flex-direction:column; align-items:flex-start; } }
