@@ -1,56 +1,195 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿Qué hace 'musical' a una madera? Propiedades físicas antes que mitología | Musselli</title>
-<meta name="description" content="En el mundo de la luthería es muy común escuchar hablar de las 'maderas tonales' como si tuvieran una propiedad mística e inexplicable. Seguro más de ">
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root { --negro:#141212; --borgona:#5D0002; --hueso:#F5F0E6; --crema:#F3ECE1; --dorado:#CCA353; --cobre:#C89B6C; }
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body { font-family:'Poppins',sans-serif; background:var(--hueso); color:#2a2723; }
-  header { background:var(--negro); padding:18px 40px; }
-  .logo { font-family:'Lora',serif; font-weight:700; font-size:20px; color:var(--hueso); }
-  .logo span { color:var(--dorado); }
-  .hero { background:var(--negro); padding:40px; }
-  .kicker { display:inline-block; background:var(--borgona); color:var(--crema); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; margin-bottom:14px; }
-  .hero h1 { font-family:'Lora',serif; font-size:30px; color:var(--hueso); line-height:1.3; max-width:760px; }
-  main { max-width:760px; margin:0 auto; padding:40px; }
-  main p { font-size:16px; line-height:1.85; margin-bottom:20px; }
-  footer { background:var(--negro); padding:24px; text-align:center; color:#6b6355; font-size:12px; }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#141212">
+<title>¿Se puede medir una guitarra con herramientas simples? Ciencia, micrófonos y FFT al alcance de todos · Musselli</title>
+<meta name="description" content="Durante mucho tiempo, la construcción y el ajuste de guitarras acústicas estuvieron rodeados de un halo de misterio. Se hablaba del &quot;oído absoluto&quot; del…">
+<link rel="canonical" href="https://blog.ricardomusselli.com/se-puede-medir-una-guitarra-con-herramientas-simples/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Se puede medir una guitarra con herramientas simples? Ciencia, micrófonos y FFT al alcance de todos">
+<meta property="og:description" content="Durante mucho tiempo, la construcción y el ajuste de guitarras acústicas estuvieron rodeados de un halo de misterio. Se hablaba del &quot;oído absoluto&quot; del…">
+<meta property="og:image" content="https://blog.ricardomusselli.com/se-puede-medir-una-guitarra-con-herramientas-simples/assets/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets-site/post.css">
+<script>
+  document.documentElement.className += " js";
+  function picFallback(img, cls){
+    var s = document.createElement("span");
+    s.className = cls + " initials"; s.textContent = "RM";
+    img.replaceWith(s);
+  }
+</script>
+<script src="/assets-site/post.js" defer></script>
 </head>
 <body>
-<header><a href="/"><img src="/assets-site/logo-musselli-blog.png" alt="Musselli Blog" style="height:32px;"></a></header>
-<div class="hero">
-  <span class="kicker">Luthier</span>
-  <h1>¿Qué hace 'musical' a una madera? Propiedades físicas antes que mitología</h1>
+
+<div class="progress" id="progress"></div>
+
+<header class="site">
+  <a class="logo" href="/"><img src="/assets-site/logo-blog.png" alt="Musselli · Blog"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="fallback" style="display:none">MUSSELLI <span style="color:var(--cobre)">·</span> Blog</span></a>
+  <nav>
+    <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+    <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+    <span class="nav-drop">
+      <a class="nav-drop__trigger" href="https://www.ricardomusselli.com/formacion">Formación<i class="caret">&#9662;</i></a>
+      <span class="navpanel">
+        <a class="navpanel__link" href="https://www.ricardomusselli.com/formacion-lutheria">Luthería</a>
+        <a class="navpanel__link" href="https://www.ricardomusselli.com/formacion-guitar-tech">Guitar Tech</a>
+      </span>
+    </span>
+    <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+    <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+    <span class="soon" title="Próximamente">App</span>
+    <span class="sep"></span>
+    <span class="nav-drop nav-drop--login">
+      <a class="nav-drop__trigger login" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Iniciar sesión<i class="caret">&#9662;</i></a>
+      <span class="navpanel navpanel--right">
+        <a class="navpanel__link" href="https://hotmart.com/es/club/ricardo-musselli-luthier" target="_blank" rel="noopener">Luthería</a>
+        <a class="navpanel__link" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Guitar Tech</a>
+      </span>
+    </span>
+  </nav>
+  <button class="burger" aria-label="Menú" data-open-menu><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobilemenu" id="mobilemenu">
+  <button class="close" aria-label="Cerrar" data-close-menu>&times;</button>
+  <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+  <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+  <a href="https://www.ricardomusselli.com/formacion-lutheria">Formación · Luthería</a>
+  <a href="https://www.ricardomusselli.com/formacion-guitar-tech">Formación · Guitar Tech</a>
+  <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+  <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+  <span class="soon">App</span>
+  <a class="login" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener" style="margin-top:8px;background:var(--borgona);font-family:var(--sans);font-size:12px;letter-spacing:.18em;padding:13px 30px;">Iniciar sesión</a>
 </div>
-<main><p>En el mundo de la luthería es muy común escuchar hablar de las "maderas tonales" como si tuvieran una propiedad mística e inexplicable. Seguro más de una vez leíste o escuchaste que cierta especie de madera tiene "alma" o un secreto reservado solo para unos pocos instrumentos elegidos. Sin embargo, cuando dejamos de lado la mitología y miramos la física acústica, la realidad es mucho más clara, lógica y apasionante.</p>
-<p>Una madera no suena bien por arte de magia. Su respuesta sonora es el resultado directo de sus propiedades físicas y mecánicas. Cuando los luthiers decimos que una pieza de madera es apta para un instrumento o que resulta "musical", en realidad nos referimos a que combina de manera equilibrada variables objetivas: densidad, rigidez, amortiguamiento interno y velocidad de propagación del sonido.</p>
-<p>En este artículo vamos a repasar qué significan estos conceptos, cómo interactúan entre sí y por qué entender la física del material te ayuda a comprender mejor cómo funciona tu instrumento.</p>
-<p>1. Densidad: el peso de las cosas</p>
-<p>La densidad es la relación entre la masa de la madera y su volumen. En términos sencillos: cuánto pesa un bloque de un tamaño determinado.</p>
-<p>En la construcción de instrumentos, la densidad influye directamente en la energía necesaria para hacer vibrar una pieza. Por ejemplo, para la tapa armónica de una guitarra acústica se suelen buscar maderas de menor densidad, como el pino abeto o el cedro. ¿Por qué? Porque una tapa más liviana requiere menos energía por parte de la cuerda para ponerse en movimiento y mover el aire.</p>
-<p>Por el contrario, para componentes como el mástil o el diapasón se buscan maderas más densas. En esa zona del instrumento necesitamos masa y firmeza para sostener la tensión de las cuerdas sin flexiones indeseadas y para evitar que la energía de la cuerda se pierda por deformación de la estructura. No existe una densidad "perfecta" universal: una madera liviana no es mejor ni peor que una pesada, todo depende del rol acústico y estructural que cumple esa pieza.</p>
-<p>2. Rigidez y Módulo de Elasticidad: la resistencia a flexionar</p>
-<p>La rigidez indica cuánto se resiste la madera a doblarse cuando se le aplica una fuerza. En física, esta propiedad se mide a través del Módulo de Elasticidad (o Módulo de Young).</p>
-<p>Un aspecto clave de la madera es que no es homogénea: es un material anisotrópico. Esto significa que sus propiedades cambian según la dirección. La rigidez a lo largo de la veta (longitudinal) es considerablemente mayor que la rigidez a través de la veta (transversal). Por eso el tipo de corte es determinante. El corte radial o en cuartos ("quarter-sawn") alinea las vetas de forma perpendicular a la cara de la tabla, ofreciendo la máxima rigidez longitudinal y una estabilidad estructural superior.</p>
-<p>La combinación entre rigidez y densidad determina qué tan rápido viaja la onda sonora por el material. La velocidad del sonido en la madera aumenta a mayor rigidez y menor densidad. Cuando una pieza es rígida y liviana al mismo tiempo, las ondas mecánicas se desplazan por ella con gran velocidad.</p>
-<p>3. Amortiguamiento interno: la memoria vibratoria del material</p>
-<p>Este es uno de los conceptos más interesantes y menos difundidos. El amortiguamiento interno (o factor de pérdida) mide la capacidad del material para absorber energía vibratoria y convertirla en calor en lugar de sonido.</p>
-<p>Pensalo con un ejemplo simple: si golpeás una barra de metal suspendida, vas a escuchar un tono claro que sostiene su sonido durante varios segundos. El metal tiene un amortiguamiento interno bajo. Si golpeás un trozo de goma, el sonido es un impacto sordo que desaparece al instante: la goma tiene un amortiguamiento interno muy alto.</p>
-<p>En la madera ocurre algo similar. Una pieza con bajo amortiguamiento interno conserva la energía de la vibración por más tiempo, favoreciendo lo que conocemos como sustain y entregando una resonancia bien definida. Por otro lado, maderas con mayor amortiguamiento absorben más rápido ciertas frecuencias, generando una respuesta de sonido más suave o un ataque más acotado. Ninguna de las dos opciones es incorrecta; simplemente responden a diferentes diseños e intenciones sonoras.</p>
-<p>4. Eficiencia de radiación acústica</p>
-<p>Al poner en relación la velocidad del sonido en la madera con su densidad, obtenemos el coeficiente de radiación acústica. Este parámetro mide qué tan eficiente es la madera para convertir la energía vibratoria de la estructura en ondas sonoras audibles en el aire.</p>
-<p>Las maderas con alto coeficiente de radiación son las indicadas para tapas armónicas, ya que logran transformar la modesta energía de una cuerda impulsada por los dedos o la púa en un volumen audible claro y amplio.</p>
-<p>5. Estabilidad, secado y técnica</p>
-<p>Podemos seleccionar un bloque de madera con valores teóricos ideales de densidad y rigidez, pero si la pieza no tuvo un proceso de secado correcto, el comportamiento mecánico va a ser inestable. </p>
-<p>El secado controlado reduce el contenido de humedad de la madera hasta alcanzar un punto de equilibrio con el ambiente. Durante este proceso, las paredes celulares se contraen y la estructura física se asienta. Un correcto estacionamiento libera tensiones internas, garantizando que el instrumento mantenga su calibración, su afinación y su respuesta estructural a lo largo del tiempo.</p>
-<p>Conclusión</p>
-<p>Cuando te preguntes qué hace "musical" a una madera, recordá que no hay misterios inalcanzables ni fórmulas mágicas. La respuesta está en la física: la masa adecuada, la rigidez precisa en la dirección correcta y el nivel de amortiguamiento apropiado para la función de cada pieza.</p>
-<p>Entender la luthería desde sus bases mecánicas no le quita emoción al instrumento. Al contrario: te permite valorar el trabajo de selección técnica y la precisión necesarias para transformar una pieza de madera en un instrumento confiable, estable y listo para sonar.</p></main>
-<footer>© Musselli — Guitar Tech · Luthier</footer>
+
+<article class="article v3">
+  <img class="article__wm" src="/assets-site/isotipo-m.png" alt="" aria-hidden="true">
+
+  <div class="article__head" data-reveal>
+    <span class="kicker">Guitar Tech</span>
+    <h1>¿Se puede medir una guitarra con herramientas simples? Ciencia, micrófonos y FFT al alcance de todos</h1>
+    <div class="article__meta">
+      <time datetime="2026-09-02">2 de septiembre de 2026</time>
+      <span class="dot" id="rt-dot" hidden>·</span><span id="readtime" hidden></span>
+    </div>
+    <div class="byline">
+      <img class="byline__pic" src="/assets-site/ricardo.jpg" alt="Ricardo Musselli" onerror="picFallback(this,'byline__pic')">
+      <span class="byline__txt">
+        <span class="byline__role">Revisado por</span>
+        <span class="byline__name">Ricardo Musselli</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="article__hero" data-reveal>
+    <img src="https://images.weserv.nl/?url=blog.ricardomusselli.com%2Fse-puede-medir-una-guitarra-con-herramientas-simples%2Fassets%2Fhero.jpg&amp;w=1400&amp;q=78&amp;output=webp&amp;we" alt="¿Se puede medir una guitarra con herramientas simples? Ciencia, micrófonos y FFT al alcance de todos">
+  </div>
+  <nav class="toc" id="toc" data-reveal hidden></nav>
+
+  <div class="article__body" data-reveal>
+<p>Durante mucho tiempo, la construcción y el ajuste de guitarras acústicas estuvieron rodeados de un halo de misterio. Se hablaba del "oído absoluto" del artesano, de secretos transmitidos en secreto o de una intuición casi mágica para saber exactamente cuándo una tapa armónica había alcanzado su espesor ideal. Si bien la sensibilidad del luthier y la experiencia táctil siguen siendo insustituibles, la física del instrumento no es magia: es acústica aplicable y cuantificable.</p>
+<p>Hoy en día surge una pregunta muy común entre guitarristas y aficionados a la luthería: ¿es posible analizar y medir el comportamiento acústico de una guitarra usando únicamente herramientas simples como un teléfono inteligente, un micrófono estándar y una aplicación gratuita? La respuesta corta es sí, pero con matices claros sobre el nivel de precisión que podés esperar.</p>
+<p>En este artículo vamos a analizar cómo funciona la medición por impacto, qué herramientas necesitás, hasta dónde podés confiar en los datos obtenidos de forma casera y cuál es el límite técnico entre una medición informal y un análisis de laboratorio.</p>
+<h2>¿Qué estamos midiendo exactamente?</h2>
+<p>Cuando golpeás suavemente la tapa de madera de una guitarra o su puente con la yema del dedo o un percutor liviano, estás generando lo que en acústica se conoce como una respuesta al impulso. Este golpe introduce una pequeña cantidad de energía en una amplia gama de frecuencias de forma casi instantánea.</p>
+<p>Como la madera tiene una masa, una rigidez y una geometría específicas, no vibra de manera uniforme en todas las frecuencias. La estructura responde amplificando ciertas frecuencias particulares llamadas modos de resonancia o modos propios. Los dos modos más importantes en las frecuencias bajas de una guitarra acústica son el modo de aire del cuerpo (asociado al volumen de aire interno y a la boca, similar al efecto de una botella al soplarla) y el modo fundamental de la tapa armónica.</p>
+<p>Saber en qué frecuencia se encuentran estos picos de resonancia te da información directa sobre la rigidez relativa de la tapa y la masa del sistema. Si afinás la tapa o modificás la altura del varetaje, esa frecuencia se desplaza. Y ahí es donde entra la medición.</p>
+<h2>La caja de herramientas simple</h2>
+<p>Para armar un sistema de análisis acústico básico en tu casa o taller, no necesitás un laboratorio de la NASA. Solo requerís tres elementos fundamentales:</p>
+<p>1. El percutor (el "martillo"): Para excitar la madera necesitás un elemento que entregue un golpe limpio, rápido y constante. La yema del nudillo o la cabeza de un martillo pequeño de madera liviana con la punta cubierta de goma suave o fieltro funcionan bien. El objetivo es dar un toque seco sin amortiguar la vibración posterior.</p>
+<p>2. El receptor (el micrófono): Puede ser desde el micrófono integrado de tu smartphone hasta un micrófono electret o de condensador conectado a una interfaz de audio. Si bien los micrófonos de teléfono tienen filtros internos de procesamiento de voz que alteran la respuesta de frecuencia general, suelen ser lo suficientemente estables para detectar picos de frecuencia fundamental.</p>
+<p>3. El analizador (software FFT): FFT significa Transformada Rápida de Fourier (Fast Fourier Transform). Es simplemente un algoritmo matemático que toma la señal de audio capturada (que es una onda en el tiempo) y la traduce a un gráfico de frecuencias (un espectro). Hay decenas de aplicaciones gratuitas tanto para iOS y Android como para computadoras (como Audacity, REW o Visual Analyzer).</p>
+<h2>Niveles de precisión: ¿Qué podés medir y qué no?</h2>
+<p>Es fundamental gestionar las expectativas. No todas las mediciones entregan el mismo grado de certeza. Podemos dividir la medición acústica en tres niveles claros:</p>
+<p>Nivel 1: Teléfono + Micrófono integrado + App móvil Con esta configuración podés identificar con bastante claridad la frecuencia fundamental de la caja (el pico del modo de aire, típicamente entre 90 Hz y 110 Hz en una guitarra de caja grande) y el pico principal de la tapa (frecuentemente entre 180 Hz y 220 Hz según el diseño). Sirve perfectamente para comparar antes y después de un cambio drástico o para saber en qué nota está resonando la caja en reposo. ¿Sus límites? El micrófono del teléfono no tiene una respuesta plana, la acústica de la habitación introduce reflexiones no deseadas y el impacto del golpe manual no es perfectamente repetible en fuerza ni en posición.</p>
+<p>Nivel 2: Micrófono de medición USB/interfaz + Entorno controlado + PC Al usar un micrófono de respuesta plana calibrado colocado a una distancia fija (por ejemplo, a 15-20 cm de la tapa) en una habitación silenciosa, la precisión aumenta notablemente. Acá podés registrar con mayor fidelidad los modos secundarios y analizar la tasa de decaimiento (cuánto tarda el sonido en apagarse en cada frecuencia). La repetibilidad mejora y podés tomar decisiones de ajuste de varetaje con mucha mayor confianza.</p>
+<p>Nivel 3: Percutor con célula de carga + Acelerómetros + Análisis modal dedicado Este es el estándar de investigación técnica avanzada. Un percutor instrumental mide exactamente cuánta fuerza se aplicó en el golpe, mientras que pequeños sensores de masa despreciable (acelerómetros) pegados a la madera miden el movimiento real de la estructura sin la interferencia del aire ni del micrófono. Este nivel permite mapear tridimensionalmente cómo se deforma la tapa en cada frecuencia. Es una herramienta indispensable para investigación profunda, aunque innecesaria para el mantenimiento o el control de rutina.</p>
+<h2>Guía paso a paso para hacer tu primera prueba casera</h2>
+<p>Si querés probar este método en tu guitarra, podés seguir estos pasos sencillos:</p>
+<ol><li>Silenciá las cuerdas: Colocá un paño de microfibra o una tira de goma espuma entre las cuerdas y el diapasón para amortiguar cualquier vibración metálica. Solo querés escuchar la madera y la caja, no las cuerdas vibrando libremente.</li><li>Prepará la app: Abrí el analizador FFT en tu teléfono o computadora. Configurá el gráfico para que muestre el rango de frecuencias de 20 Hz a 1000 Hz, que es donde se concentra la información estructural más importante.</li><li>Elegí un lugar silencioso: El ruido de fondo (un ventilador, el tráfico fuera de tu casa) genera picos falsos en la gráfica.</li><li>Realizá el impacto: Sostené la guitarra en el aire suspendida suavemente por el mástil (para no amortiguar el fondo con tu cuerpo) y dale un pequeño golpe con la yema del nudillo en el puente o en el centro de la tapa inferior.</li><li>Leé el espectro: Verás responder a la gráfica con picos muy marcados. El pico más bajo y marcado suele ser la resonancia del aire (modo Helmholtz), y el siguiente pico dominante corresponde al modo fundamental de la tapa.</li></ol>
+<h2>La física al servicio del criterio</h2>
+<p>Medir una guitarra con herramientas accesibles no reemplaza el criterio auditivo ni la experiencia técnica para evaluar la calidad de un instrumento, pero elimina la adivinación. Te permite comprobar datos objetivos: confirmar si dos guitarras del mismo modelo tienen una resonancia similar, o verificar cómo varía la rigidez del instrumento según los cambios de humedad ambiente a lo largo del año.</p>
+<p>La ciencia de la acústica no está para quitarle la emoción a la música ni la magia a la luthería, sino para darnos herramientas claras que nos ayuden a entender mejor cómo funciona cada milímetro de madera que vibra en nuestras manos.</p>
+  </div>
+</article>
+
+<aside class="author">
+  <img class="author__pic" src="/assets-site/ricardo.jpg" alt="Ricardo Musselli" onerror="picFallback(this,'author__pic')">
+  <div>
+    <div class="author__label">Revisado por</div>
+    <div class="author__name">Ricardo Musselli</div>
+    <p class="author__bio">Luthier y guitar tech. Construyo guitarras clásicas y acústicas a medida, reparo instrumentos y enseño el oficio con criterio profesional. Todo lo que sale en este blog pasa por mis manos.</p>
+    <a class="author__link" href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo &rarr;</a>
+  </div>
+</aside>
+
+<div class="article__foot">
+  <a class="article__back" href="/">&larr; Volver al blog</a>
+  <div class="article__share">
+    <a href="https://api.whatsapp.com/send?text=%C2%BFSe%20puede%20medir%20una%20guitarra%20con%20herramientas%20simples%3F%20Ciencia%2C%20micr%C3%B3fonos%20y%20FFT%20al%20alcance%20de%20todos%20https://blog.ricardomusselli.com/se-puede-medir-una-guitarra-con-herramientas-simples/" target="_blank" rel="noopener">Compartir</a>
+  </div>
+</div>
+
+<section class="closer">
+  <div class="closer__card" data-reveal>
+    <div class="closer__inner">
+      <span class="closer__badge">¿Alguna duda?</span>
+      <h2>¿Esto te dejó con ganas de saber más?</h2>
+      <p class="lead">Te doy tres caminos: hacé alguno de los test y descubrí exactamente en qué paso estás, o escribime directo y lo charlamos.</p>
+      <div class="closer__btns">
+        <a class="closer__btn closer__btn--ghost" href="https://www.ricardomusselli.com/test-lutheria">Test de Luthería</a>
+        <a class="closer__btn closer__btn--ghost" href="https://www.ricardomusselli.com/test-guitar-tech">Test de Guitar Tech</a>
+        <a class="closer__btn closer__btn--wa" href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog%20y%20quiero%20consultarte%20algo." target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.24-.27.53-.34.71-.34.18 0 .36 0 .51.01.16.01.39-.06.6.46.24.59.81 2.04.88 2.19.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.15-.28.34-.4.46-.13.13-.27.28-.12.54.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.11 1.3.26.13.41.11.57-.07.15-.18.66-.77.84-1.03.18-.27.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.43.2.5.31.06.11.06.65-.18 1.33z"></path></svg>
+          WhatsApp
+        </a>
+      </div>
+      <p class="fine">Te respondo yo, no un bot. Sin compromiso.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="cols">
+    <div class="brand">
+      <img src="/assets-site/logo_institucional_blanco.png" alt="Musselli — Luthería · Guitar Tech"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="fallback" style="display:none">MUSSELLI</span>
+      <p>Ricardo Musselli — luthier y guitar tech. Construcción a medida, reparación y formación.</p>
+    </div>
+    <div>
+      <div class="col-title">Navegación</div>
+      <div class="col-links">
+        <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+        <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+        <a href="https://www.ricardomusselli.com/formacion">Formación</a>
+        <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">Contacto</div>
+      <div class="col-links">
+        <a href="https://wa.me/525620208877" target="_blank" rel="noopener">WhatsApp · +52 56 2020 8877</a>
+        <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+        <span>Huixquilucan, Edo. de México</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 Ricardo Musselli. Todos los derechos reservados.</span>
+    <span><a href="https://www.ricardomusselli.com/">ricardomusselli.com</a></span>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="29" height="29" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.24-.27.53-.34.71-.34.18 0 .36 0 .51.01.16.01.39-.06.6.46.24.59.81 2.04.88 2.19.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.15-.28.34-.4.46-.13.13-.27.28-.12.54.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.11 1.3.26.13.41.11.57-.07.15-.18.66-.77.84-1.03.18-.27.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.43.2.5.31.06.11.06.65-.18 1.33z"></path></svg>
+</a>
+
 </body>
 </html>
