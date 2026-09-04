@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#141212">
+<title>¿Qué mide realmente un tap tone? De la percepción acústica a la respuesta estructural · Musselli</title>
+<meta name="description" content="Si alguna vez viste a un luthier sostener una tapa de madera entre dos dedos, darle un golpecito seco con el nudillo y escucharla atentamente cerca del…">
+<link rel="canonical" href="https://blog.ricardomusselli.com/que-mide-realmente-un-tap-tone/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="¿Qué mide realmente un tap tone? De la percepción acústica a la respuesta estructural">
+<meta property="og:description" content="Si alguna vez viste a un luthier sostener una tapa de madera entre dos dedos, darle un golpecito seco con el nudillo y escucharla atentamente cerca del…">
+<meta property="og:image" content="https://blog.ricardomusselli.com/que-mide-realmente-un-tap-tone/assets/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets-site/post.css">
+<script>
+  document.documentElement.className += " js";
+  function picFallback(img, cls){
+    var s = document.createElement("span");
+    s.className = cls + " initials"; s.textContent = "RM";
+    img.replaceWith(s);
+  }
+</script>
+<script src="/assets-site/post.js" defer></script>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="site">
+  <a class="logo" href="/"><img src="/assets-site/logo-blog.png" alt="Musselli · Blog"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="fallback" style="display:none">MUSSELLI <span style="color:var(--cobre)">·</span> Blog</span></a>
+  <nav>
+    <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+    <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+    <span class="nav-drop">
+      <a class="nav-drop__trigger" href="https://www.ricardomusselli.com/formacion">Formación<i class="caret">&#9662;</i></a>
+      <span class="navpanel">
+        <a class="navpanel__link" href="https://www.ricardomusselli.com/formacion-lutheria">Luthería</a>
+        <a class="navpanel__link" href="https://www.ricardomusselli.com/formacion-guitar-tech">Guitar Tech</a>
+      </span>
+    </span>
+    <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+    <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+    <span class="soon" title="Próximamente">App</span>
+    <span class="sep"></span>
+    <span class="nav-drop nav-drop--login">
+      <a class="nav-drop__trigger login" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Iniciar sesión<i class="caret">&#9662;</i></a>
+      <span class="navpanel navpanel--right">
+        <a class="navpanel__link" href="https://hotmart.com/es/club/ricardo-musselli-luthier" target="_blank" rel="noopener">Luthería</a>
+        <a class="navpanel__link" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener">Guitar Tech</a>
+      </span>
+    </span>
+  </nav>
+  <button class="burger" aria-label="Menú" data-open-menu><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobilemenu" id="mobilemenu">
+  <button class="close" aria-label="Cerrar" data-close-menu>&times;</button>
+  <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+  <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+  <a href="https://www.ricardomusselli.com/formacion-lutheria">Formación · Luthería</a>
+  <a href="https://www.ricardomusselli.com/formacion-guitar-tech">Formación · Guitar Tech</a>
+  <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+  <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+  <span class="soon">App</span>
+  <a class="login" href="https://hotmart.com/es/club/ricardo-musselli" target="_blank" rel="noopener" style="margin-top:8px;background:var(--borgona);font-family:var(--sans);font-size:12px;letter-spacing:.18em;padding:13px 30px;">Iniciar sesión</a>
+</div>
+
+<article class="article v2">
+  <img class="article__wm" src="/assets-site/isotipo-m.png" alt="" aria-hidden="true">
+
+  <div class="article__head" data-reveal>
+    <span class="kicker">Luthier</span>
+    <h1>¿Qué mide realmente un tap tone? De la percepción acústica a la respuesta estructural</h1>
+    <div class="article__meta">
+      <time datetime="2026-09-02">2 de septiembre de 2026</time>
+      <span class="dot" id="rt-dot" hidden>·</span><span id="readtime" hidden></span>
+    </div>
+    <div class="byline">
+      <img class="byline__pic" src="/assets-site/ricardo.jpg" alt="Ricardo Musselli" onerror="picFallback(this,'byline__pic')">
+      <span class="byline__txt">
+        <span class="byline__role">Revisado por</span>
+        <span class="byline__name">Ricardo Musselli</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="article__hero" data-reveal>
+    <img src="https://images.weserv.nl/?url=blog.ricardomusselli.com%2Fque-mide-realmente-un-tap-tone%2Fassets%2Fhero.jpg&amp;w=1400&amp;q=78&amp;output=webp&amp;we" alt="¿Qué mide realmente un tap tone? De la percepción acústica a la respuesta estructural">
+  </div>
+  <nav class="toc" id="toc" data-reveal hidden></nav>
+
+  <div class="article__body" data-reveal>
+<p>Si alguna vez viste a un luthier sostener una tapa de madera entre dos dedos, darle un golpecito seco con el nudillo y escucharla atentamente cerca del oído, presenciaste la prueba del tap tone. Durante décadas, este gesto estuvo rodeado de un halo casi místico. Parecía que el artesano, mediante una suerte de oído absoluto o intuición secreta, era capaz de predecir el destino sonoro de una guitarra antes de construirla.</p>
+<p>Sin embargo, cuando retiramos el mito y analizamos el fenómeno desde la acústica y la física de materiales, el tap tone deja de ser un truco mágico y se convierte en algo mucho más valioso: una herramienta de diagnóstico estructural. En este post vamos a desarmar el concepto para entender qué mide exactamente un tap tone, separando tres dimensiones que suelen confundirse: la percepción de nuestro oído, las frecuencias reales de resonancia y el comportamiento mecánico de la pieza.</p>
+<p>¿Qué ocurre físicamente al golpear la madera?</p>
+<p>Cuando le das un golpecito a una tabla de pino abeto, jacarandá o cualquier otra madera tonal, le estás entregando una cantidad puntual de energía mecánica en una fracción de segundo. La madera responde a ese impacto vibrando. Pero no vibra de cualquier manera ni en un tono puro único: vibra de forma simultánea en varios de sus modos propios de resonancia.</p>
+<p>Cada modo propio corresponde a un patrón específico en el que la placa se flexiona y se deforma dinámicamente. Estas frecuencias naturales dependen fundamentalmente de tres factores físicos: la rigidez del material, la masa (densidad) y la geometría de la pieza (su longitud, ancho y espesor).</p>
+<h2>El oído frente a la frecuencia real</h2>
+<p>El primer paso para entender el tap tone es separar lo que escuchamos de lo que ocurre físicamente. Cuando realizás la prueba a simple oído, tu cerebro procesa esa masa sonora rápida e intenta asignarle una nota musical fija. Sin embargo, el oído humano no funciona como un analizador de espectro de laboratorio: tiende a priorizar la frecuencia dominante con mayor amplitud o la que cae en la zona donde la audición humana es más sensible.</p>
+<p>Si tomás ese mismo impacto y lo registrás mediante un micrófono acoplado a un analizador de espectro de frecuencia en tiempo real (RTA), la imagen cambia por completo. Lo que ves no es una simple nota, sino un gráfico con varios picos de frecuencia bien delimitados. El pico más bajo suele representar el modo fundamental de flexión, al que le siguen modos secundarios de torsión y flexiones transversales de mayor orden.</p>
+<p>Pretender reducir toda esa firma acústica a una nota musical aislada es simplificar en exceso un fenómeno multidimensional. Dos tapas de madera pueden dar una impresión auditiva similar al golpe y, sin embargo, presentar distribuciones de frecuencia y niveles de rigidez estructural completamente diferentes.</p>
+<h2>Frecuencia frente a comportamiento estructural</h2>
+<p>Las frecuencias que muestra el analizador son la manifestación externa de las propiedades mecánicas internas de la tabla. Al evaluar el tap tone, nos interesa conocer principalmente dos variables físicas del material:</p>
+<p>La relación rigidez-peso (módulo de elasticidad específico): La velocidad con la que las ondas sonoras viajan por la madera depende de la relación entre su rigidez y su densidad. Si una pieza es rígida y liviana, sus modos de vibración aparecerán en frecuencias más altas. Medir estas frecuencias te permite evaluar cuánta resistencia a la flexión ofrece la tabla en relación con la masa que aporta a la estructura del instrumento.</p>
+<p>El factor de amortiguamiento interno (factor Q): ¿Cuánto tiempo tarda en apagarse la resonancia después del golpe? Un tap tone que se extingue al instante indica que el material absorbe la energía vibracional internamente y la disipa en forma de calor. En cambio, si el sonido sostiene su resonancia durante un intervalo claro, la pieza presenta un amortiguamiento bajo (un factor Q alto). Esta propiedad nos da pistas sobre la eficiencia con la que la madera transmitirá la energía de las cuerdas una vez ensamblada.</p>
+<h2>La madera libre frente a la guitarra terminada</h2>
+<p>Un error habitual consiste en asumir que un tap tone agudo o prolongado en una tabla suelta garantiza automáticamente un instrumento de alto rendimiento. En la física de placas vibrantes, las condiciones de borde lo cambian todo.</p>
+<p>Cuando la tabla está libre (sostenida suavemente con los dedos), sus bordes pueden moverse sin restricción. Pero en cuanto rebajás el espesor, pegás el abanico de varetas y ensamblás la tapa a los aros del instrumento, las condiciones de borde pasan a estar restringidas. Los modos propios de la placa libre desaparecen para dar lugar a los modos acoplados del cuerpo terminado.</p>
+<p>Por esta razón, el tap tone no es un método de adivinación del sonido final, sino una medición de control durante el proceso de construcción. Vos podés medir el tap tone de la tapa libre para conocer la rigidez inicial de la madera. A medida que trabajás el espesor y tallás las varetas, volvés a medir la respuesta para monitorear el descenso graduado de las frecuencias resonantes. Esto te permite tomar decisiones de dimensionado basadas en el comportamiento real de esa pieza en particular, en lugar de aplicar medidas geométricas ciegas extraídas de un plano estándar.</p>
+<p>Un puente entre la física y el oficio</p>
+<p>El tap tone no mide intangibles ni predice mágicamente la belleza tímbrica de una guitarra. Lo que realmente mide es cómo interactúan la masa, la rigidez flexional y el amortiguamiento interno de una pieza de madera en un estado determinado.</p>
+<p>Aprender a interpretar estas mediciones —ya sea entrenando la escucha para detectar la duración y claridad del tono, o utilizando herramientas de análisis digital— te permite dejar de adivinar y empezar a comprender el material. Al separar la percepción psicoacústica del análisis de frecuencias y del comportamiento mecánico, transformás una técnica tradicional en un proceso técnico claro, repetible y fundamentado.</p>
+  </div>
+</article>
+
+<aside class="author">
+  <img class="author__pic" src="/assets-site/ricardo.jpg" alt="Ricardo Musselli" onerror="picFallback(this,'author__pic')">
+  <div>
+    <div class="author__label">Revisado por</div>
+    <div class="author__name">Ricardo Musselli</div>
+    <p class="author__bio">Luthier y guitar tech. Construyo guitarras clásicas y acústicas a medida, reparo instrumentos y enseño el oficio con criterio profesional. Todo lo que sale en este blog pasa por mis manos.</p>
+    <a class="author__link" href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo &rarr;</a>
+  </div>
+</aside>
+
+<div class="article__foot">
+  <a class="article__back" href="/">&larr; Volver al blog</a>
+  <div class="article__share">
+    <a href="https://api.whatsapp.com/send?text=%C2%BFQu%C3%A9%20mide%20realmente%20un%20tap%20tone%3F%20De%20la%20percepci%C3%B3n%20ac%C3%BAstica%20a%20la%20respuesta%20estructural%20https://blog.ricardomusselli.com/que-mide-realmente-un-tap-tone/" target="_blank" rel="noopener">Compartir</a>
+  </div>
+</div>
+
+<section class="closer">
+  <div class="closer__card" data-reveal>
+    <div class="closer__inner">
+      <span class="closer__badge">¿Alguna duda?</span>
+      <h2>¿Esto te dejó con ganas de saber más?</h2>
+      <p class="lead">Te doy tres caminos: hacé alguno de los test y descubrí exactamente en qué paso estás, o escribime directo y lo charlamos.</p>
+      <div class="closer__btns">
+        <a class="closer__btn closer__btn--ghost" href="https://www.ricardomusselli.com/test-lutheria">Test de Luthería</a>
+        <a class="closer__btn closer__btn--ghost" href="https://www.ricardomusselli.com/test-guitar-tech">Test de Guitar Tech</a>
+        <a class="closer__btn closer__btn--wa" href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog%20y%20quiero%20consultarte%20algo." target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.24-.27.53-.34.71-.34.18 0 .36 0 .51.01.16.01.39-.06.6.46.24.59.81 2.04.88 2.19.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.15-.28.34-.4.46-.13.13-.27.28-.12.54.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.11 1.3.26.13.41.11.57-.07.15-.18.66-.77.84-1.03.18-.27.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.43.2.5.31.06.11.06.65-.18 1.33z"></path></svg>
+          WhatsApp
+        </a>
+      </div>
+      <p class="fine">Te respondo yo, no un bot. Sin compromiso.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="cols">
+    <div class="brand">
+      <img src="/assets-site/logo_institucional_blanco.png" alt="Musselli — Luthería · Guitar Tech"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="fallback" style="display:none">MUSSELLI</span>
+      <p>Ricardo Musselli — luthier y guitar tech. Construcción a medida, reparación y formación.</p>
+    </div>
+    <div>
+      <div class="col-title">Navegación</div>
+      <div class="col-links">
+        <a href="https://www.ricardomusselli.com/lutheria">Luthería</a>
+        <a href="https://www.ricardomusselli.com/guitar-tech">Guitar Tech</a>
+        <a href="https://www.ricardomusselli.com/formacion">Formación</a>
+        <a href="https://www.ricardomusselli.com/sobre-ricardo">Sobre Ricardo</a>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">Contacto</div>
+      <div class="col-links">
+        <a href="https://wa.me/525620208877" target="_blank" rel="noopener">WhatsApp · +52 56 2020 8877</a>
+        <a href="https://www.ricardomusselli.com/contacto">Contacto</a>
+        <span>Huixquilucan, Edo. de México</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 Ricardo Musselli. Todos los derechos reservados.</span>
+    <span><a href="https://www.ricardomusselli.com/">ricardomusselli.com</a></span>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/525620208877?text=Hola%20Ricardo%2C%20te%20escribo%20desde%20el%20blog." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="29" height="29" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.24-.27.53-.34.71-.34.18 0 .36 0 .51.01.16.01.39-.06.6.46.24.59.81 2.04.88 2.19.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.15-.28.34-.4.46-.13.13-.27.28-.12.54.15.27.68 1.12 1.46 1.81 1 .89 1.85 1.17 2.11 1.3.26.13.41.11.57-.07.15-.18.66-.77.84-1.03.18-.27.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.43.2.5.31.06.11.06.65-.18 1.33z"></path></svg>
+</a>
+
+</body>
+</html>
