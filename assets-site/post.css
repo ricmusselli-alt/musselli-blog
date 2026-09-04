@@ -45,6 +45,7 @@ header.site .logo .fallback{ font-family:var(--serif); font-weight:600; font-siz
 header.site nav{ display:flex; align-items:center; gap:clamp(14px,1.9vw,28px); }
 header.site nav a, header.site nav span{ font-family:var(--sans); font-weight:400; font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--texto-2); white-space:nowrap; transition:color .25s ease; }
 header.site nav a:hover{ color:var(--cobre); }
+header.site nav .navlink--cross{ color:var(--cobre); }
 header.site nav .sep{ width:1px; height:15px; background:rgba(200,155,108,.3); }
 header.site nav .soon{ color:var(--texto-dim); cursor:default; }
 header.site nav .login{ color:var(--texto); border:1px solid rgba(200,155,108,.5); padding:9px 16px; transition:background .25s ease, color .25s ease, border-color .25s ease; }
